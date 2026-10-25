@@ -97,6 +97,14 @@ function ManhwaDetailPage() {
                 {manhwa.description}
               </p>
             </Card>
+            <div className="mt-6 flex gap-3">
+              <Link
+                to={`/lector?manhwa=${manhwa.slug}`}
+                className="inline-flex min-h-11 items-center justify-center rounded-xl bg-primary-500 px-4 py-2 text-sm font-semibold text-white shadow-glow transition-colors hover:bg-primary-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-400"
+              >
+                Leer primer capítulo
+              </Link>
+            </div>
           </div>
         </div>
       </article>
