@@ -20,13 +20,23 @@ function ManhwaCover({
   className = '',
   showGenre = false,
 }: ManhwaCoverProps) {
+  const imageUrl = manhwa.coverImage || `https://picsum.photos/seed/${manhwa.slug}/300/450`;
   return (
     <div
-      aria-label={`Portada temporal de ${manhwa.title}`}
-      className={`flex items-end bg-gradient-to-br p-2 sm:p-3 ${coverClasses[manhwa.cover]} ${className}`}
+      aria-label={`Portada de ${manhwa.title}`}
+      className={`flex items-end relative overflow-hidden rounded-2xl ${className}`}
       role="img"
     >
-      {showGenre ? <Badge tone="primary">{manhwa.genre}</Badge> : null}
+      <img
+        src={imageUrl}
+        alt={manhwa.title}
+        loading="lazy"
+        className="absolute inset-0 h-full w-full object-cover opacity-90"
+      />
+      <div className={`absolute inset-0 bg-gradient-to-br ${coverClasses[manhwa.cover]}`} />
+      <div className="relative z-10 w-full p-2 sm:p-3">
+        {showGenre ? <Badge tone="primary">{manhwa.genre}</Badge> : null}
+      </div>
     </div>
   )
 }
