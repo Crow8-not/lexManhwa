@@ -20,3 +20,25 @@ export type Manhwa = {
   cover: CoverVariant
   coverImage?: string
 }
+
+export type ChapterPage = {
+  id: string
+  pageNumber: number
+  imageUrl?: string
+  imageKey?: string
+}
+
+export type Chapter = {
+  id: string
+  manhwaId: string
+  number: number
+  title: string
+  slug: string
+  pages: ChapterPage[]
+}
+
+export type DemoState = {
+  version: number
+  manhwas: Manhwa[]
+  chapters: Chapter[]
+}

@@ -1,25 +1,31 @@
+import { useMemo } from 'react'
 import Badge from '../../components/ui/Badge'
 import Card from '../../components/ui/Card'
 import Input from '../../components/ui/Input'
 import StatusMessage from '../../components/ui/StatusMessage'
 import ManhwaCard from '../../components/manhwa/ManhwaCard'
-import { manhwas } from '../../data/manhwas'
+import { useDemoCatalog } from '../../lib/demo/hooks'
 import { Link } from 'react-router-dom'
 
-const latestUpdates = [...manhwas].sort((first, second) => {
-  const firstChapter = Number.parseInt(
-    first.latestChapter.replace(/\D/g, ''),
-    10,
-  )
-  const secondChapter = Number.parseInt(
-    second.latestChapter.replace(/\D/g, ''),
-    10,
-  )
-
-  return secondChapter - firstChapter
-})
-
 function HomePage() {
+  const { manhwas } = useDemoCatalog()
+  const latestUpdates = useMemo(
+    () =>
+      [...manhwas].sort((first, second) => {
+        const firstChapter = Number.parseInt(
+          first.latestChapter.replace(/\D/g, ''),
+          10,
+        )
+        const secondChapter = Number.parseInt(
+          second.latestChapter.replace(/\D/g, ''),
+          10,
+        )
+
+        return secondChapter - firstChapter
+      }),
+    [manhwas],
+  )
+
   return (
     <main id="inicio" className="surface-grid">
       <section className="mx-auto max-w-content px-4 pb-12 pt-12 sm:px-8 sm:pb-24 sm:pt-24">

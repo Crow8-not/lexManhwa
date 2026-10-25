@@ -1,9 +1,14 @@
+import { useMemo } from 'react'
 import { Link } from 'react-router-dom'
-import { manhwas } from '../../data/manhwas'
-
-const genres = [...new Set(manhwas.map((manhwa) => manhwa.genre))].sort()
+import { useDemoCatalog } from '../../lib/demo/hooks'
 
 function GenresPage() {
+  const { manhwas } = useDemoCatalog()
+  const genres = useMemo(
+    () => [...new Set(manhwas.map((manhwa) => manhwa.genre))].sort(),
+    [manhwas],
+  )
+
   return (
     <main className="surface-grid min-h-[calc(100vh-137px)] px-4 py-12 sm:px-8 sm:py-16">
       <section className="mx-auto max-w-content">

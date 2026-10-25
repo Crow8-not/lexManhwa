@@ -3,7 +3,7 @@ import Badge from '../../components/ui/Badge'
 import Card from '../../components/ui/Card'
 import ManhwaCover from '../../components/manhwa/ManhwaCover'
 import StatusMessage from '../../components/ui/StatusMessage'
-import { manhwas } from '../../data/manhwas'
+import { useDemoCatalog } from '../../lib/demo/hooks'
 import type { ManhwaStatus } from '../../types/manhwa'
 
 const statusLabels: Record<ManhwaStatus, string> = {
@@ -19,6 +19,7 @@ const statusTones: Record<ManhwaStatus, 'success' | 'warning' | 'neutral'> = {
 }
 
 function ManhwaDetailPage() {
+  const { manhwas } = useDemoCatalog()
   const { slug } = useParams<{ slug: string }>()
   const manhwa = manhwas.find((item) => item.slug === slug)
 

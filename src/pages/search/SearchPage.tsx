@@ -4,7 +4,7 @@ import ManhwaCard from '../../components/manhwa/ManhwaCard'
 import Input from '../../components/ui/Input'
 import StatusMessage from '../../components/ui/StatusMessage'
 import Button from '../../components/ui/Button'
-import { manhwas } from '../../data/manhwas'
+import { useDemoCatalog } from '../../lib/demo/hooks'
 import type { ManhwaStatus } from '../../types/manhwa'
 
 const statusLabels: Record<ManhwaStatus, string> = {
@@ -13,10 +13,16 @@ const statusLabels: Record<ManhwaStatus, string> = {
   hiatus: 'En pausa',
 }
 
-const genres = [...new Set(manhwas.map((manhwa) => manhwa.genre))].sort()
-const statuses = [...new Set(manhwas.map((manhwa) => manhwa.status))]
-
 function SearchPage() {
+  const { manhwas } = useDemoCatalog()
+  const genres = useMemo(
+    () => [...new Set(manhwas.map((manhwa) => manhwa.genre))].sort(),
+    [manhwas],
+  )
+  const statuses = useMemo(
+    () => [...new Set(manhwas.map((manhwa) => manhwa.status))],
+    [manhwas],
+  )
   const [searchParams, setSearchParams] = useSearchParams()
   const genreFromUrl = searchParams.get('genre')
   const [query, setQuery] = useState('')
@@ -40,7 +46,7 @@ function SearchPage() {
 
         return matchesQuery && matchesGenre && matchesStatus
       }),
-    [genre, normalizedQuery, status],
+    [genre, manhwas, normalizedQuery, status],
   )
 
   function handleGenreChange(value: string) {
