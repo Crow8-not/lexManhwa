@@ -18,4 +18,5 @@ export type Manhwa = {
   status: ManhwaStatus
   latestChapter: string
   cover: CoverVariant
+  coverImage?: string
 }
