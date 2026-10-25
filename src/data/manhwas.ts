@@ -13,6 +13,7 @@ export const manhwas: Manhwa[] = [
     status: 'ongoing',
     latestChapter: 'Capítulo 18',
     cover: 'indigo-coral',
+    coverImage: 'https://picsum.photos/seed/ecos-de-neon/300/450',
   },
   {
     id: 'manhwa-002',
@@ -26,6 +27,7 @@ export const manhwas: Manhwa[] = [
     status: 'ongoing',
     latestChapter: 'Capítulo 07',
     cover: 'cyan-violet',
+    coverImage: 'https://picsum.photos/seed/ultima-orbita/300/450',
   },
   {
     id: 'manhwa-003',
@@ -39,6 +41,7 @@ export const manhwas: Manhwa[] = [
     status: 'completed',
     latestChapter: 'Capítulo 24',
     cover: 'amber-rose',
+    coverImage: 'https://picsum.photos/seed/bajo-la-lluvia/300/450',
   },
   {
     id: 'manhwa-004',
@@ -52,6 +55,7 @@ export const manhwas: Manhwa[] = [
     status: 'ongoing',
     latestChapter: 'Capítulo 12',
     cover: 'violet-amber',
+    coverImage: 'https://picsum.photos/seed/horizonte-cero/300/450',
   },
   {
     id: 'manhwa-005',
@@ -65,6 +69,7 @@ export const manhwas: Manhwa[] = [
     status: 'ongoing',
     latestChapter: 'Capítulo 31',
     cover: 'emerald-blue',
+    coverImage: 'https://picsum.photos/seed/jardin-de-ceniza/300/450',
   },
   {
     id: 'manhwa-006',
@@ -78,6 +83,7 @@ export const manhwas: Manhwa[] = [
     status: 'hiatus',
     latestChapter: 'Capítulo 09',
     cover: 'cyan-violet',
+    coverImage: 'https://picsum.photos/seed/ultima-orbita/300/450',
   },
   {
     id: 'manhwa-007',
@@ -91,6 +97,7 @@ export const manhwas: Manhwa[] = [
     status: 'ongoing',
     latestChapter: 'Capítulo 22',
     cover: 'indigo-coral',
+    coverImage: 'https://picsum.photos/seed/ecos-de-neon/300/450',
   },
   {
     id: 'manhwa-008',
@@ -104,6 +111,7 @@ export const manhwas: Manhwa[] = [
     status: 'completed',
     latestChapter: 'Capítulo 16',
     cover: 'cyan-violet',
+    coverImage: 'https://picsum.photos/seed/ultima-orbita/300/450',
   },
   {
     id: 'manhwa-009',
@@ -117,6 +125,7 @@ export const manhwas: Manhwa[] = [
     status: 'ongoing',
     latestChapter: 'Capítulo 28',
     cover: 'amber-rose',
+    coverImage: 'https://picsum.photos/seed/bajo-la-lluvia/300/450',
   },
   {
     id: 'manhwa-010',
@@ -130,6 +139,7 @@ export const manhwas: Manhwa[] = [
     status: 'completed',
     latestChapter: 'Capítulo 05',
     cover: 'violet-amber',
+    coverImage: 'https://picsum.photos/seed/horizonte-cero/300/450',
   },
   {
     id: 'manhwa-011',
@@ -143,6 +153,7 @@ export const manhwas: Manhwa[] = [
     status: 'ongoing',
     latestChapter: 'Capítulo 14',
     cover: 'emerald-blue',
+    coverImage: 'https://picsum.photos/seed/jardin-de-ceniza/300/450',
   },
   {
     id: 'manhwa-012',
@@ -156,6 +167,7 @@ export const manhwas: Manhwa[] = [
     status: 'ongoing',
     latestChapter: 'Capítulo 20',
     cover: 'cyan-violet',
+    coverImage: 'https://picsum.photos/seed/ultima-orbita/300/450',
   },
   {
     id: 'manhwa-013',
@@ -169,6 +181,7 @@ export const manhwas: Manhwa[] = [
     status: 'ongoing',
     latestChapter: 'Capítulo 11',
     cover: 'indigo-coral',
+    coverImage: 'https://picsum.photos/seed/ecos-de-neon/300/450',
   },
   {
     id: 'manhwa-014',
@@ -182,6 +195,7 @@ export const manhwas: Manhwa[] = [
     status: 'hiatus',
     latestChapter: 'Capítulo 08',
     cover: 'emerald-blue',
+    coverImage: 'https://picsum.photos/seed/jardin-de-ceniza/300/450',
   },
   {
     id: 'manhwa-015',
@@ -195,6 +209,7 @@ export const manhwas: Manhwa[] = [
     status: 'ongoing',
     latestChapter: 'Capítulo 03',
     cover: 'amber-rose',
+    coverImage: 'https://picsum.photos/seed/bajo-la-lluvia/300/450',
   },
   {
     id: 'manhwa-016',
@@ -208,6 +223,7 @@ export const manhwas: Manhwa[] = [
     status: 'ongoing',
     latestChapter: 'Capítulo 19',
     cover: 'violet-amber',
+    coverImage: 'https://picsum.photos/seed/horizonte-cero/300/450',
   },
   {
     id: 'manhwa-017',
@@ -221,6 +237,7 @@ export const manhwas: Manhwa[] = [
     status: 'completed',
     latestChapter: 'Capítulo 27',
     cover: 'indigo-coral',
+    coverImage: 'https://picsum.photos/seed/ecos-de-neon/300/450',
   },
   {
     id: 'manhwa-018',
@@ -234,6 +251,7 @@ export const manhwas: Manhwa[] = [
     status: 'ongoing',
     latestChapter: 'Capítulo 13',
     cover: 'cyan-violet',
+    coverImage: 'https://picsum.photos/seed/ultima-orbita/300/450',
   },
   {
     id: 'manhwa-019',
@@ -247,6 +265,7 @@ export const manhwas: Manhwa[] = [
     status: 'ongoing',
     latestChapter: 'Capítulo 10',
     cover: 'emerald-blue',
+    coverImage: 'https://picsum.photos/seed/jardin-de-ceniza/300/450',
   },
   {
     id: 'manhwa-020',
@@ -260,5 +279,6 @@ export const manhwas: Manhwa[] = [
     status: 'hiatus',
     latestChapter: 'Capítulo 06',
     cover: 'amber-rose',
+    coverImage: 'https://picsum.photos/seed/bajo-la-lluvia/300/450',
   },
 ]
