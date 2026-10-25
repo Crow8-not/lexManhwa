@@ -1,6 +1,5 @@
 import { useState } from 'react'
-import { NavLink } from 'react-router-dom'
-import Button from '../ui/Button'
+import { Link, NavLink } from 'react-router-dom'
 
 const navigationItems = [
   { label: 'Inicio', to: '/' },
@@ -38,9 +37,12 @@ function SiteHeader() {
             </NavLink>
           ))}
         </nav>
-        <Button className="hidden sm:inline-flex" variant="secondary">
+        <Link
+          to="/"
+          className="hidden sm:inline-flex min-h-11 items-center justify-center rounded-xl bg-primary-500 px-4 py-2 text-sm font-semibold text-white shadow-glow transition-colors hover:bg-primary-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-400"
+        >
           Acceder
-        </Button>
+        </Link>
         <button
           aria-expanded={isMenuOpen}
           aria-label={isMenuOpen ? 'Cerrar menú' : 'Abrir menú'}

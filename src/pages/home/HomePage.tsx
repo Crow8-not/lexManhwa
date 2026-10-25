@@ -1,5 +1,4 @@
 import Badge from '../../components/ui/Badge'
-import Button from '../../components/ui/Button'
 import Card from '../../components/ui/Card'
 import Input from '../../components/ui/Input'
 import StatusMessage from '../../components/ui/StatusMessage'
@@ -35,8 +34,12 @@ function HomePage() {
             historias sin perder de vista lo importante: leer.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <Button>Explorar historias</Button>
-            <Button variant="secondary">Ver componentes</Button>
+            <Link to="/explorar" className="inline-flex min-h-11 items-center justify-center rounded-xl bg-primary-500 px-4 py-2 text-sm font-semibold text-white shadow-glow transition-colors hover:bg-primary-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-400">
+              Explorar historias
+            </Link>
+            <Link to="/" className="inline-flex min-h-11 items-center justify-center rounded-xl bg-ink border border-line px-4 py-2 text-sm font-semibold text-slate-300 transition-colors hover:bg-elevated hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-500">
+              Ver componentes
+            </Link>
           </div>
         </div>
       </section>
