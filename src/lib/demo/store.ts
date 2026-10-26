@@ -1,6 +1,7 @@
 import { chapters as seedChapters } from '../../data/chapters'
 import { manhwas as seedManhwas } from '../../data/manhwas'
 import type {
+  AdminSession,
   Chapter,
   ChapterPage,
   CoverVariant,
@@ -10,8 +11,8 @@ import type {
   ReadingProgress,
 } from '../../types/manhwa'
 
-export const DEMO_STORAGE_KEY = 'lexmanhwa:demo:v3'
-export const DEMO_STATE_VERSION = 3
+export const DEMO_STORAGE_KEY = 'lexmanhwa:demo:v4'
+export const DEMO_STATE_VERSION = 4
 
 type DemoUpdater = (state: DemoState) => DemoState
 type DemoListener = () => void
@@ -125,6 +126,14 @@ function isReadingProgress(value: unknown): value is ReadingProgress {
   )
 }
 
+function isAdminSession(value: unknown): value is AdminSession {
+  return (
+    isRecord(value) &&
+    typeof value.isAuthenticated === 'boolean' &&
+    isString(value.loginTime)
+  )
+}
+
 function isDemoState(value: unknown): value is DemoState {
   return (
     isRecord(value) &&
@@ -134,7 +143,8 @@ function isDemoState(value: unknown): value is DemoState {
     Array.isArray(value.chapters) &&
     value.chapters.every(isChapter) &&
     Array.isArray(value.progress) &&
-    value.progress.every(isReadingProgress)
+    value.progress.every(isReadingProgress) &&
+    isAdminSession(value.adminSession)
   )
 }
 
@@ -147,6 +157,7 @@ function createSeedState(): DemoState {
       pages: chapter.pages.map((page) => ({ ...page })),
     })),
     progress: [],
+    adminSession: { isAuthenticated: false, loginTime: '' },
   }
 }
 
@@ -261,4 +272,23 @@ export function getLatestProgress(
     return null
   }
   return { manhwa, chapter, progress: latest }
+}
+
+export function loginAdmin() {
+  setDemoState((state) => ({
+    ...state,
+    adminSession: { isAuthenticated: true, loginTime: new Date().toISOString() },
+  }))
+}
+
+export function logoutAdmin() {
+  setDemoState((state) => ({
+    ...state,
+    adminSession: { isAuthenticated: false, loginTime: '' },
+  }))
+}
+
+export function isAdminAuthenticated(): boolean {
+  const state = getDemoState()
+  return state.adminSession.isAuthenticated
 }

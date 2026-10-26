@@ -1,11 +1,14 @@
 import { Route, Routes } from 'react-router-dom'
+import AdminRoute from './AdminRoute'
+import AdminPage from '../pages/admin/AdminPage'
 import BrowsePage from '../pages/browse/BrowsePage'
 import GenreDetailPage from '../pages/genres/GenreDetailPage'
 import GenresPage from '../pages/genres/GenresPage'
 import HomePage from '../pages/home/HomePage'
+import LoginPage from '../pages/auth/LoginPage'
 import ManhwaDetailPage from '../pages/manhwa/ManhwaDetailPage'
-import ReaderPage from '../pages/reader/ReaderPage'
 import NotFoundPage from '../pages/NotFoundPage'
+import ReaderPage from '../pages/reader/ReaderPage'
 import SearchPage from '../pages/search/SearchPage'
 
 function AppRoutes() {
@@ -19,6 +22,11 @@ function AppRoutes() {
       <Route path="/manhwa/:slug" element={<ManhwaDetailPage />} />
       <Route path="/manhwa/:slug/capitulo/:chapterSlug" element={<ReaderPage />} />
       <Route path="/lector" element={<ReaderPage />} />
+      <Route path="/admin/login" element={<LoginPage />} />
+      <Route element={<AdminRoute />}>
+        <Route path="/admin" element={<AdminPage />} />
+        <Route path="/admin/*" element={<AdminPage />} />
+      </Route>
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
   )

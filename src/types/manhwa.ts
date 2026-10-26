@@ -45,9 +45,15 @@ export type ReadingProgress = {
   updatedAt: string
 }
 
+export type AdminSession = {
+  isAuthenticated: boolean
+  loginTime: string
+}
+
 export type DemoState = {
   version: number
   manhwas: Manhwa[]
   chapters: Chapter[]
   progress: ReadingProgress[]
+  adminSession: AdminSession
 }
