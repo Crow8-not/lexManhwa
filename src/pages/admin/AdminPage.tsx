@@ -15,7 +15,11 @@ export default function AdminPage() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
   const handleLogout = () => {
-    logoutAdmin()
+    try {
+      logoutAdmin()
+    } catch {
+      // Ignore errors
+    }
     navigate('/admin/login', { replace: true })
   }
 

@@ -5,9 +5,16 @@ export default function AdminRoute() {
   const { isAdminAuthenticated } = useDemoCatalog()
   const location = useLocation()
 
-  if (!isAdminAuthenticated()) {
-    return <Navigate to="/admin/login" state={{ from: location }} replace />
-  }
+  const isAuthed = (() => {
+    try {
+      return isAdminAuthenticated()
+    } catch {
+      return false
+    }
+  })()
 
-  return <Outlet />
+  if (isAuthed) {
+    return <Outlet />
+  }
+  return <Navigate to="/admin/login" state={{ from: location }} replace />
 }

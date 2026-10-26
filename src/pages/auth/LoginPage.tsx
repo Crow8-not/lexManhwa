@@ -13,8 +13,12 @@ export default function LoginPage() {
   const [error, setError] = useState('')
 
   useEffect(() => {
-    if (isAdminAuthenticated()) {
-      navigate('/admin', { replace: true })
+    try {
+      if (isAdminAuthenticated()) {
+        navigate('/admin', { replace: true })
+      }
+    } catch {
+      // Ignore errors
     }
   }, [isAdminAuthenticated, navigate])
 
@@ -23,7 +27,12 @@ export default function LoginPage() {
     setError('')
 
     if (email === 'admin@demo.com' && password === 'demo1234') {
-      loginAdmin()
+      try {
+        loginAdmin()
+      } catch {
+        setError('Error al iniciar sesión. Intenta de nuevo.')
+        return
+      }
       navigate('/admin', { replace: true })
     } else {
       setError('Credenciales inválidas. Usa admin@demo.com / demo1234')
