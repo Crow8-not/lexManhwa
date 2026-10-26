@@ -28,7 +28,9 @@ export default function ManhwaList() {
   const navigate = useNavigate()
   const { manhwas } = useDemoCatalog()
   const [showForm, setShowForm] = useState(false)
-  const [editingManhwa, setEditingManhwa] = useState<ManhwaListProps['manhwas'][0] | null>(null)
+  const [editingManhwa, setEditingManhwa] = useState<
+    ManhwaListProps['manhwas'][0] | null
+  >(null)
   const [previewUrls, setPreviewUrls] = useState<Record<string, string>>({})
 
   useEffect(() => {
@@ -49,7 +51,10 @@ export default function ManhwaList() {
     loadAllPreviews()
   }, [manhwas])
 
-  const statusTones: Record<string, 'primary' | 'success' | 'warning' | 'danger' | 'info' | 'neutral'> = {
+  const statusTones: Record<
+    string,
+    'primary' | 'success' | 'warning' | 'danger' | 'info' | 'neutral'
+  > = {
     ongoing: 'success',
     completed: 'primary',
     hiatus: 'warning',
@@ -71,7 +76,12 @@ export default function ManhwaList() {
   }
 
   const handleDeleteManhwa = (manhwaId: string) => {
-    if (!confirm('¿Eliminar este manhwa y TODOS sus capítulos? Esta acción no se puede deshacer.')) return
+    if (
+      !confirm(
+        '¿Eliminar este manhwa y TODOS sus capítulos? Esta acción no se puede deshacer.',
+      )
+    )
+      return
 
     // The actual deletion is handled in ManhwaForm, but we can also do it here
     // For now, we'll let ManhwaForm handle it when editing
@@ -81,15 +91,17 @@ export default function ManhwaList() {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h2 className="text-xl font-bold text-slate-100">Manhwas ({manhwas.length})</h2>
-        <Button onClick={handleNewManhwa}>
-          Nuevo manhwa
-        </Button>
+        <h2 className="text-xl font-bold text-slate-100">
+          Manhwas ({manhwas.length})
+        </h2>
+        <Button onClick={handleNewManhwa}>Nuevo manhwa</Button>
       </div>
 
       {manhwas.length === 0 ? (
         <Card className="p-8 text-center">
-          <p className="text-slate-400">No hay manhwas registrados. Crea el primero.</p>
+          <p className="text-slate-400">
+            No hay manhwas registrados. Crea el primero.
+          </p>
         </Card>
       ) : (
         <div className="space-y-3">
@@ -111,20 +123,41 @@ export default function ManhwaList() {
                 )}
               </div>
               <div className="flex-1 min-w-0">
-                <h3 className="font-semibold text-slate-100 truncate">{manhwa.title}</h3>
-                <p className="text-sm text-slate-400 truncate">{manhwa.author} · {manhwa.artist}</p>
+                <h3 className="font-semibold text-slate-100 truncate">
+                  {manhwa.title}
+                </h3>
+                <p className="text-sm text-slate-400 truncate">
+                  {manhwa.author} · {manhwa.artist}
+                </p>
                 <div className="flex items-center gap-2 mt-1">
-                  <Badge tone={statusTones[manhwa.status] || 'neutral'} size="sm">
-                    {manhwa.status === 'ongoing' ? 'En publicación' : manhwa.status === 'completed' ? 'Completado' : 'En pausa'}
+                  <Badge
+                    tone={statusTones[manhwa.status] || 'neutral'}
+                    size="sm"
+                  >
+                    {manhwa.status === 'ongoing'
+                      ? 'En publicación'
+                      : manhwa.status === 'completed'
+                        ? 'Completado'
+                        : 'En pausa'}
                   </Badge>
-                  <Badge tone="neutral" size="sm">{manhwa.genre}</Badge>
+                  <Badge tone="neutral" size="sm">
+                    {manhwa.genre}
+                  </Badge>
                 </div>
               </div>
               <div className="flex items-center gap-2">
-                <Button variant="ghost" size="sm" onClick={() => handleEditManhwa(manhwa)}>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => handleEditManhwa(manhwa)}
+                >
                   Editar
                 </Button>
-                <Button variant="danger" size="sm" onClick={() => handleDeleteManhwa(manhwa.id)}>
+                <Button
+                  variant="danger"
+                  size="sm"
+                  onClick={() => handleDeleteManhwa(manhwa.id)}
+                >
                   Eliminar
                 </Button>
               </div>

@@ -50,7 +50,9 @@ export default function AdminPage() {
       >
         <div className="flex flex-col h-full">
           <div className="p-4 border-b border-line">
-            <h1 className="text-lg font-bold text-slate-100">LexManhwa Admin</h1>
+            <h1 className="text-lg font-bold text-slate-100">
+              LexManhwa Admin
+            </h1>
           </div>
           <nav className="flex-1 p-4 space-y-1 overflow-y-auto">
             {tabs.map((tab) => (
@@ -80,31 +82,52 @@ export default function AdminPage() {
       <div className="lg:pl-64">
         {/* Top bar */}
         <header className="sticky top-0 z-30 flex items-center justify-between gap-4 p-4 border-b border-line bg-surface/95 backdrop-blur-sm lg:hidden">
-          <Button variant="ghost" size="sm" onClick={() => setSidebarOpen(true)} aria-label="Abrir menú">
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => setSidebarOpen(true)}
+            aria-label="Abrir menú"
+          >
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M4 6h16M4 12h16M4 18h16"
+              />
             </svg>
           </Button>
-          <h1 className="text-lg font-bold text-slate-100">Panel de administración</h1>
+          <h1 className="text-lg font-bold text-slate-100">
+            Panel de administración
+          </h1>
           <div className="w-10" />
         </header>
 
         <main className="p-4 lg:p-6 space-y-6">
           <div className="hidden lg:block">
-            <h1 className="text-2xl font-bold text-slate-100">Panel de administración</h1>
-            <p className="text-slate-400">Gestiona el catálogo de manhwas y capítulos</p>
+            <h1 className="text-2xl font-bold text-slate-100">
+              Panel de administración
+            </h1>
+            <p className="text-slate-400">
+              Gestiona el catálogo de manhwas y capítulos
+            </p>
           </div>
 
-          {activeTab === 'manhwas' && (
-            <ManhwaList />
-          )}
+          {activeTab === 'manhwas' && <ManhwaList />}
 
           {activeTab === 'settings' && (
             <Card className="p-6">
               <h2 className="text-xl font-bold text-slate-100 mb-4">Ajustes</h2>
               <div className="space-y-4 text-slate-300">
                 <p>Panel de ajustes en construcción.</p>
-                <p className="text-sm">Aquí se podrán configurar opciones globales del sitio.</p>
+                <p className="text-sm">
+                  Aquí se podrán configurar opciones globales del sitio.
+                </p>
               </div>
             </Card>
           )}

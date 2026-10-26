@@ -53,16 +53,19 @@ Las claves secretas están destinadas exclusivamente a componentes controlados p
 Una `secret key` tiene privilegios elevados y puede evitar las políticas RLS, por lo que nunca debe enviarse al navegador.
 
 Supabase está migrando las claves antiguas:
+
 - `anon`
 - `service_role`
 
 hacia:
+
 - `publishable`
 - `secret`
 
 Durante la implementación se utilizará la nomenclatura actual recomendada por Supabase.
 
 Nunca incluir una `secret key` en:
+
 - Código frontend.
 - Git.
 - `.env.example`.
@@ -91,17 +94,21 @@ La interfaz no debe asumir que una sesión existe únicamente porque el usuario 
 ## 6. Modelo de roles
 
 LexManhwa tendrá inicialmente dos roles:
+
 - `reader`
 - `admin`
 
 ### reader
+
 Puede:
+
 - Consultar contenido publicado.
 - Gestionar sus favoritos.
 - Gestionar su progreso de lectura.
 - Gestionar los campos permitidos de su perfil.
 
 No puede:
+
 - Crear manhwas.
 - Modificar manhwas.
 - Eliminar manhwas.
@@ -113,7 +120,9 @@ No puede:
 - Modificar roles.
 
 ### admin
+
 Puede gestionar las operaciones administrativas autorizadas:
+
 - Manhwas.
 - Géneros.
 - Capítulos.
@@ -127,9 +136,11 @@ Puede gestionar las operaciones administrativas autorizadas:
 El campo `role` no puede ser modificable por un usuario normal.
 
 No confiar en:
+
 ```javascript
 if (user.role === "admin")
 ```
+
 como mecanismo de seguridad.
 
 Ese tipo de comprobación puede utilizarse para mostrar u ocultar elementos de interfaz, pero no constituye autorización suficiente.
@@ -146,12 +157,14 @@ RLS debe configurarse junto con los permisos de PostgreSQL.
 No asumir que activar RLS por sí solo define correctamente todos los permisos.
 
 Cada operación relevante debe analizarse por separado:
+
 - `SELECT`
 - `INSERT`
 - `UPDATE`
 - `DELETE`
 
 Las políticas deben indicar explícitamente el rol de PostgreSQL al que aplican:
+
 - `anon`
 - `authenticated`
 
@@ -180,17 +193,20 @@ No considerar RLS terminado únicamente porque la migración se haya ejecutado c
 Los usuarios pueden gestionar únicamente los campos de su propio perfil que estén permitidos.
 
 Un usuario no puede modificar:
+
 - `id`
 - `role`
-directamente desde el cliente.
+  directamente desde el cliente.
 
 Los campos editables podrán incluir:
+
 - `username`
 - `display_name`
 - `avatar_url`
-según las reglas finales de la aplicación.
+  según las reglas finales de la aplicación.
 
 La política de `UPDATE` debe comprobar tanto:
+
 - El registro que se está modificando.
 - El estado resultante después de la modificación.
 
@@ -199,11 +215,13 @@ La política de `UPDATE` debe comprobar tanto:
 ## 11. Protección de favoritos
 
 Un usuario únicamente puede:
+
 - Consultar sus propios favoritos.
 - Crear sus propios favoritos.
 - Eliminar sus propios favoritos.
 
 No puede:
+
 - Crear favoritos para otro usuario.
 - Modificar favoritos de otro usuario.
 - Eliminar favoritos de otro usuario.
@@ -215,6 +233,7 @@ La base de datos debe impedir duplicados mediante la restricción correspondient
 ## 12. Protección del progreso
 
 Un usuario únicamente puede:
+
 - Consultar su propio progreso.
 - Crear su propio progreso.
 - Actualizar su propio progreso.
@@ -241,6 +260,7 @@ La seguridad de esta regla debe aplicarse mediante la base de datos y no únicam
 
 Las operaciones administrativas deben estar protegidas.
 Un `reader` no puede utilizar directamente la API para:
+
 - Crear manhwas.
 - Editar manhwas.
 - Crear capítulos.
@@ -256,6 +276,7 @@ Ocultar botones administrativos no sustituye las políticas de seguridad.
 
 Las políticas de Storage deben proteger los archivos igual que las tablas de PostgreSQL.
 Separar conceptualmente:
+
 - `covers/`
 - `chapters/`
 - `avatars/`
@@ -271,6 +292,7 @@ Los archivos privados deben requerir las políticas de acceso apropiadas.
 
 Los archivos subidos deben validarse.
 Validar:
+
 - Tipo MIME.
 - Extensión.
 - Tamaño.
@@ -279,6 +301,7 @@ Validar:
 - Relación con el recurso correspondiente.
 
 Los formatos iniciales permitidos serán:
+
 - `image/jpeg`
 - `image/png`
 - `image/webp`
@@ -286,6 +309,7 @@ Los formatos iniciales permitidos serán:
 
 No aceptar archivos ejecutables o scripts.
 Ejemplos:
+
 - `.exe`
 - `.sh`
 - `.bat`
@@ -299,6 +323,7 @@ La validación no debe depender únicamente de la extensión proporcionada por e
 ## 17. Límites de archivos
 
 La aplicación debe establecer límites razonables para:
+
 - Tamaño máximo de portada.
 - Tamaño máximo de página.
 - Número máximo de páginas por capítulo.
@@ -312,6 +337,7 @@ Los límites definitivos se establecerán durante la implementación y se docume
 
 Validar los datos tanto en el cliente como en las capas correspondientes del backend.
 Validar:
+
 - Títulos.
 - Descripciones.
 - Slugs.
@@ -341,6 +367,7 @@ Preferir texto plano cuando no sea necesario permitir HTML.
 ## 20. Errores
 
 No mostrar al usuario:
+
 - Stack traces.
 - Credenciales.
 - Secret keys.
@@ -358,10 +385,11 @@ Durante el desarrollo se podrán registrar detalles técnicos de forma controlad
 
 No subir secretos al repositorio.
 No subir:
+
 - `.env`
 - `.env.local`
 - `.env.production`
-cuando contengan secretos.
+  cuando contengan secretos.
 
 Mantener un `.env.example` sin credenciales reales.
 Revisar el repositorio antes de publicar el proyecto.
@@ -392,6 +420,7 @@ No agregar una dependencia únicamente para resolver una tarea pequeña que pued
 
 La aplicación debe utilizar contenido que tenga autorización para ser almacenado y distribuido.
 Para demostraciones utilizar:
+
 - Contenido propio.
 - Contenido de dominio público.
 - Contenido con licencia.

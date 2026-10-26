@@ -73,6 +73,7 @@ manhwa
 Representa información adicional asociada a un usuario autenticado.
 
 **Campos:**
+
 - `id`
 - `username`
 - `display_name`
@@ -99,6 +100,7 @@ Puede ser NULL.
 **`role`**
 Rol del usuario.
 Valores iniciales:
+
 - `reader`
 - `admin`
 
@@ -119,6 +121,7 @@ Fecha de última actualización.
 Representa una obra disponible en la plataforma.
 
 **Campos:**
+
 - `id`
 - `title`
 - `slug`
@@ -165,6 +168,7 @@ Puede ser NULL.
 **`status`**
 Representa el estado de la obra.
 Valores iniciales:
+
 - `ongoing`
 - `completed`
 - `hiatus`
@@ -175,6 +179,7 @@ Este campo describe el estado del manhwa y no su visibilidad en la plataforma.
 **`publication_status`**
 Representa si el contenido está disponible públicamente.
 Valores iniciales:
+
 - `draft`
 - `published`
 
@@ -198,6 +203,7 @@ Fecha de última actualización.
 Representa los géneros disponibles.
 
 **Campos:**
+
 - `id`
 - `name`
 - `slug`
@@ -205,6 +211,7 @@ Representa los géneros disponibles.
 **`name`**
 Nombre visible del género.
 Ejemplos:
+
 - Action
 - Adventure
 - Comedy
@@ -225,6 +232,7 @@ Debe ser único.
 Representa la relación muchos-a-muchos entre manhwas y géneros.
 
 **Campos:**
+
 - `manhwa_id`
 - `genre_id`
 
@@ -241,6 +249,7 @@ Esto evita asignar el mismo género dos veces al mismo manhwa.
 Representa los capítulos pertenecientes a un manhwa.
 
 **Campos:**
+
 - `id`
 - `manhwa_id`
 - `number`
@@ -272,6 +281,7 @@ Debe ser único dentro del contexto apropiado.
 
 **`publication_status`**
 Valores iniciales:
+
 - `draft`
 - `published`
 
@@ -294,6 +304,7 @@ Fecha de última actualización.
 Representa las páginas de un capítulo.
 
 **Campos:**
+
 - `id`
 - `chapter_id`
 - `page_number`
@@ -324,6 +335,7 @@ No almacenar la imagen binaria dentro de PostgreSQL.
 Representa los manhwas guardados por un usuario.
 
 **Campos:**
+
 - `id`
 - `user_id`
 - `manhwa_id`
@@ -337,6 +349,7 @@ Esto impide que un usuario agregue el mismo manhwa varias veces.
 
 **Seguridad**
 Un lector solamente puede:
+
 - Crear sus propios favoritos.
 - Consultar sus propios favoritos.
 - Eliminar sus propios favoritos.
@@ -350,6 +363,7 @@ No debe poder modificar favoritos pertenecientes a otros usuarios.
 Representa el progreso de lectura de un usuario.
 
 **Campos:**
+
 - `id`
 - `user_id`
 - `manhwa_id`
@@ -476,12 +490,14 @@ Las tablas relevantes deben utilizar Row Level Security.
 
 **Lectores**
 Un lector puede:
+
 - Consultar contenido publicado.
 - Gestionar sus favoritos.
 - Gestionar su progreso.
 - Gestionar los campos permitidos de su propio perfil.
 
 Un lector no puede:
+
 - Crear manhwas.
 - Modificar manhwas.
 - Eliminar manhwas.
@@ -493,6 +509,7 @@ Un lector no puede:
 
 **Administradores**
 Los administradores pueden gestionar el contenido autorizado:
+
 - Manhwas.
 - Géneros.
 - Capítulos.
@@ -509,12 +526,14 @@ No confiar únicamente en el frontend.
 El sistema diferencia entre:
 
 **Estado de la obra**
+
 - `ongoing`
 - `completed`
 - `hiatus`
 - `cancelled`
 
 **Estado de publicación**
+
 - `draft`
 - `published`
 
@@ -543,6 +562,7 @@ Ejemplo:
 
 **Chapters**
 Ejemplo:
+
 ```text
 chapters/solo-leveling/chapter-001/001.webp
 chapters/solo-leveling/chapter-001/002.webp
@@ -561,6 +581,7 @@ No almacenar imágenes binarias directamente en PostgreSQL.
 ## 19. Subida de archivos
 
 Las subidas administrativas deben validar:
+
 - Tipo MIME.
 - Extensión.
 - Tamaño.
@@ -578,6 +599,7 @@ Las reglas de eliminación deben definirse explícitamente durante la creación 
 Cuando una entidad dependiente no tenga sentido sin su entidad padre, puede utilizarse eliminación en cascada de manera controlada.
 
 Ejemplos posibles:
+
 ```text
 manhwa
   |
@@ -604,6 +626,7 @@ Antes de ejecutar una migración destructiva debe existir una revisión explíci
 
 Durante el desarrollo se pueden utilizar datos de demostración.
 Los datos de demostración deben utilizar contenido:
+
 - Propio.
 - De dominio público.
 - Con licencia apropiada.
@@ -616,6 +639,7 @@ No incluir contenido protegido por derechos de autor sin autorización.
 ## 23. Evolución futura
 
 Podrían añadirse posteriormente:
+
 - `comments`
 - `ratings`
 - `bookmarks`
@@ -630,6 +654,7 @@ No deben crearse tablas anticipadamente sin una funcionalidad que las necesite.
 ## 24. Regla para la implementación
 
 Antes de crear las tablas definitivas:
+
 - Revisar este documento.
 - Crear las migraciones.
 - Revisar las claves foráneas.

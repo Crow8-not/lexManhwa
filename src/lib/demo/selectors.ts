@@ -9,7 +9,10 @@ export function getPublishedChaptersForManhwa(
     .sort((a, b) => a.number - b.number)
 }
 
-export function getLatestChapter(manhwaId: string, chapters: Chapter[]): Chapter | null {
+export function getLatestChapter(
+  manhwaId: string,
+  chapters: Chapter[],
+): Chapter | null {
   const published = getPublishedChaptersForManhwa(manhwaId, chapters)
   return published.length > 0 ? published[published.length - 1] : null
 }
@@ -25,7 +28,10 @@ export function getChapterCount(manhwaId: string, chapters: Chapter[]): number {
   return getPublishedChaptersForManhwa(manhwaId, chapters).length
 }
 
-export function getFirstChapter(manhwaId: string, chapters: Chapter[]): Chapter | null {
+export function getFirstChapter(
+  manhwaId: string,
+  chapters: Chapter[],
+): Chapter | null {
   const published = getPublishedChaptersForManhwa(manhwaId, chapters)
   return published.length > 0 ? published[0] : null
 }
@@ -54,7 +60,11 @@ export function getContinueReading(
   const sortedProgress = [...progress].sort(
     (a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime(),
   )
-  const result: Array<{ manhwa: Manhwa; chapter: Chapter; progress: ReadingProgress }> = []
+  const result: Array<{
+    manhwa: Manhwa
+    chapter: Chapter
+    progress: ReadingProgress
+  }> = []
   for (const p of sortedProgress) {
     const manhwa = manhwas.find((m) => m.id === p.manhwaId)
     const chapter = chapters.find((c) => c.id === p.chapterId)

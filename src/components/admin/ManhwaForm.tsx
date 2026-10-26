@@ -34,7 +34,11 @@ const COVER_VARIANTS = [
   'violet-amber',
 ] as const
 
-export default function ManhwaForm({ manhwaId, initialData, onClose }: ManhwaFormProps) {
+export default function ManhwaForm({
+  manhwaId,
+  initialData,
+  onClose,
+}: ManhwaFormProps) {
   const navigate = useNavigate()
   const { manhwas, setDemoState } = useDemoCatalog()
   const [isEditing] = useState(!!manhwaId)
@@ -45,7 +49,7 @@ export default function ManhwaForm({ manhwaId, initialData, onClose }: ManhwaFor
 
   const otherManhwas = useMemo(
     () => (manhwaId ? manhwas.filter((m) => m.id !== manhwaId) : manhwas),
-    [manhwas, manhwaId]
+    [manhwas, manhwaId],
   )
 
   const genres = useMemo(() => {
@@ -53,16 +57,21 @@ export default function ManhwaForm({ manhwaId, initialData, onClose }: ManhwaFor
     return Array.from(genreSet).sort()
   }, [manhwas])
 
-  const initialFormData = useMemo<ManhwaFormData>(() => ({
-    title: initialData?.title || '',
-    slug: initialData?.slug || (initialData?.title ? slugify(initialData.title) : ''),
-    author: initialData?.author || '',
-    artist: initialData?.artist || '',
-    genre: initialData?.genre || '',
-    status: initialData?.status || 'ongoing',
-    description: initialData?.description || '',
-    coverImageKey: initialData?.coverImageKey,
-  }), [initialData])
+  const initialFormData = useMemo<ManhwaFormData>(
+    () => ({
+      title: initialData?.title || '',
+      slug:
+        initialData?.slug ||
+        (initialData?.title ? slugify(initialData.title) : ''),
+      author: initialData?.author || '',
+      artist: initialData?.artist || '',
+      genre: initialData?.genre || '',
+      status: initialData?.status || 'ongoing',
+      description: initialData?.description || '',
+      coverImageKey: initialData?.coverImageKey,
+    }),
+    [initialData],
+  )
 
   const [formData, setFormData] = useState<ManhwaFormData>(initialFormData)
 
@@ -83,7 +92,11 @@ export default function ManhwaForm({ manhwaId, initialData, onClose }: ManhwaFor
       setError('El slug es obligatorio')
       return false
     }
-    if (otherManhwas.some((m) => m.title.toLowerCase() === formData.title.toLowerCase())) {
+    if (
+      otherManhwas.some(
+        (m) => m.title.toLowerCase() === formData.title.toLowerCase(),
+      )
+    ) {
       setError('Ya existe un manhwa con este título')
       return false
     }
@@ -106,7 +119,7 @@ export default function ManhwaForm({ manhwaId, initialData, onClose }: ManhwaFor
       setDemoState((state: DemoState) => ({
         ...state,
         manhwas: state.manhwas.map((m) =>
-          m.id === manhwaId ? { ...m, ...formData, slug: formData.slug } : m
+          m.id === manhwaId ? { ...m, ...formData, slug: formData.slug } : m,
         ),
       }))
     } else {
@@ -121,7 +134,8 @@ export default function ManhwaForm({ manhwaId, initialData, onClose }: ManhwaFor
         status: formData.status,
         description: formData.description,
         latestChapter: 'Sin capítulos',
-        cover: COVER_VARIANTS[Math.floor(Math.random() * COVER_VARIANTS.length)],
+        cover:
+          COVER_VARIANTS[Math.floor(Math.random() * COVER_VARIANTS.length)],
         coverImageKey: formData.coverImageKey,
       }
       setDemoState((state: DemoState) => ({
@@ -136,7 +150,13 @@ export default function ManhwaForm({ manhwaId, initialData, onClose }: ManhwaFor
   }
 
   const handleDelete = () => {
-    if (!manhwaId || !confirm('¿Eliminar este manhwa y TODOS sus capítulos? Esta acción no se puede deshacer.')) return
+    if (
+      !manhwaId ||
+      !confirm(
+        '¿Eliminar este manhwa y TODOS sus capítulos? Esta acción no se puede deshacer.',
+      )
+    )
+      return
 
     setDemoState((state: DemoState) => ({
       ...state,
@@ -154,7 +174,7 @@ export default function ManhwaForm({ manhwaId, initialData, onClose }: ManhwaFor
 
   const coverKeyPrefix = useMemo(
     () => (manhwaId ? `cover-${manhwaId}` : `cover-new-${timestamp}`),
-    [manhwaId, timestamp]
+    [manhwaId, timestamp],
   )
 
   return (
@@ -188,14 +208,18 @@ export default function ManhwaForm({ manhwaId, initialData, onClose }: ManhwaFor
             <Input
               label="Slug"
               value={formData.slug}
-              onChange={(e) => setFormData((prev) => ({ ...prev, slug: e.target.value }))}
+              onChange={(e) =>
+                setFormData((prev) => ({ ...prev, slug: e.target.value }))
+              }
               required
               hint="Se genera automáticamente, editable"
             />
             <Input
               label="Autor"
               value={formData.author}
-              onChange={(e) => setFormData((prev) => ({ ...prev, author: e.target.value }))}
+              onChange={(e) =>
+                setFormData((prev) => ({ ...prev, author: e.target.value }))
+              }
               required
               placeholder="Autor"
             />
@@ -205,11 +229,15 @@ export default function ManhwaForm({ manhwaId, initialData, onClose }: ManhwaFor
             <Input
               label="Artista"
               value={formData.artist}
-              onChange={(e) => setFormData((prev) => ({ ...prev, artist: e.target.value }))}
+              onChange={(e) =>
+                setFormData((prev) => ({ ...prev, artist: e.target.value }))
+              }
               placeholder="Artista (opcional)"
             />
             <div className="space-y-2">
-              <label className="block text-sm font-medium text-slate-200">Género</label>
+              <label className="block text-sm font-medium text-slate-200">
+                Género
+              </label>
               <div className="flex flex-wrap gap-2">
                 {genres.map((genre) => (
                   <Button
@@ -222,7 +250,12 @@ export default function ManhwaForm({ manhwaId, initialData, onClose }: ManhwaFor
                     {genre}
                   </Button>
                 ))}
-                <Button variant="ghost" size="sm" type="button" onClick={() => setNewGenre('nuevo')}>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  type="button"
+                  onClick={() => setNewGenre('nuevo')}
+                >
                   + Nuevo
                 </Button>
               </div>
@@ -245,31 +278,51 @@ export default function ManhwaForm({ manhwaId, initialData, onClose }: ManhwaFor
             <select
               className="min-h-11 w-full rounded-xl border border-line bg-ink px-3.5 text-sm text-white"
               value={formData.status}
-              onChange={(e) => setFormData((prev) => ({ ...prev, status: e.target.value as typeof formData.status }))}
+              onChange={(e) =>
+                setFormData((prev) => ({
+                  ...prev,
+                  status: e.target.value as typeof formData.status,
+                }))
+              }
             >
               {STATUSES.map((status) => (
                 <option key={status} value={status}>
-                  {status === 'ongoing' ? 'En publicación' : status === 'completed' ? 'Completado' : 'En pausa'}
+                  {status === 'ongoing'
+                    ? 'En publicación'
+                    : status === 'completed'
+                      ? 'Completado'
+                      : 'En pausa'}
                 </option>
               ))}
             </select>
           </div>
 
           <div className="space-y-2">
-            <label className="block text-sm font-medium text-slate-200">Descripción</label>
+            <label className="block text-sm font-medium text-slate-200">
+              Descripción
+            </label>
             <textarea
               className="min-h-[100px] w-full rounded-xl border border-line bg-ink px-3.5 py-2.5 text-sm text-white placeholder:text-slate-500 transition-colors hover:border-slate-500 focus:border-primary-400 focus:outline-none resize-y"
               value={formData.description}
-              onChange={(e) => setFormData((prev) => ({ ...prev, description: e.target.value }))}
+              onChange={(e) =>
+                setFormData((prev) => ({
+                  ...prev,
+                  description: e.target.value,
+                }))
+              }
               placeholder="Descripción del manhwa"
             />
           </div>
 
           <div className="space-y-2">
-            <label className="block text-sm font-medium text-slate-200">Portada</label>
+            <label className="block text-sm font-medium text-slate-200">
+              Portada
+            </label>
             <ImageUpload
               value={formData.coverImageKey}
-              onChange={(key) => setFormData((prev) => ({ ...prev, coverImageKey: key }))}
+              onChange={(key) =>
+                setFormData((prev) => ({ ...prev, coverImageKey: key }))
+              }
               keyPrefix={coverKeyPrefix}
               label="Imagen de portada"
             />

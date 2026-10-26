@@ -23,6 +23,7 @@ El proyecto debe avanzar por fases y no se debe comenzar una fase importante sin
 - [ ] Crear repositorio en GitHub.
 
 ### Resultado esperado
+
 La arquitectura, base de datos, seguridad, interfaz y alcance inicial deben estar suficientemente definidos antes de comenzar el desarrollo de la aplicación.
 
 ---
@@ -45,6 +46,7 @@ La arquitectura, base de datos, seguridad, interfaz y alcance inicial deben esta
 - [ ] Verificar que el proyecto se ejecuta correctamente.
 
 ### Resultado esperado
+
 La aplicación debe iniciar localmente y contar con una base técnica funcional para comenzar el desarrollo de la interfaz.
 
 ---
@@ -69,6 +71,7 @@ La aplicación debe iniciar localmente y contar con una base técnica funcional 
 - [ ] Comprobar responsive design.
 
 ### Resultado esperado
+
 La aplicación debe contar con un sistema visual coherente y componentes reutilizables antes de construir las páginas principales.
 
 ---
@@ -91,6 +94,7 @@ La aplicación debe contar con un sistema visual coherente y componentes reutili
 - [ ] Comprobar responsive design.
 
 ### Resultado esperado
+
 La aplicación debe permitir navegar por un catálogo utilizando datos temporales o de prueba, sin depender todavía de toda la infraestructura de Supabase.
 
 ---
@@ -115,6 +119,7 @@ La aplicación debe permitir navegar por un catálogo utilizando datos temporale
 - [ ] Verificar permisos básicos.
 
 ### Resultado esperado
+
 La base de datos y Storage deben estar conectados al proyecto y protegidos mediante las reglas definidas en `docs/database.md` y `docs/security.md`.
 
 ---
@@ -137,6 +142,7 @@ La base de datos y Storage deben estar conectados al proyecto y protegidos media
 - [ ] Probar que un reader no puede elevar sus privilegios.
 
 ### Resultado esperado
+
 Los usuarios deben poder autenticarse y las operaciones sensibles deben estar protegidas mediante autorización real, no solamente mediante controles de interfaz.
 
 ---
@@ -156,6 +162,7 @@ Los usuarios deben poder autenticarse y las operaciones sensibles deben estar pr
 - [ ] Probar permisos de las operaciones.
 
 ### Resultado esperado
+
 El catálogo debe funcionar utilizando datos reales de Supabase y respetar las reglas de publicación y autorización.
 
 ---
@@ -179,6 +186,7 @@ El catálogo debe funcionar utilizando datos reales de Supabase y respetar las r
 - [ ] Probar lector en móvil.
 
 ### Resultado esperado
+
 El usuario debe poder abrir un capítulo, leer sus páginas, navegar entre capítulos y conservar su progreso.
 
 ---
@@ -202,6 +210,7 @@ El usuario debe poder abrir un capítulo, leer sus páginas, navegar entre capí
 - [ ] Probar operaciones con una cuenta admin.
 
 ### Resultado esperado
+
 Un usuario con rol admin debe poder gestionar contenido autorizado sin que un reader pueda ejecutar esas operaciones directamente mediante la API.
 
 ---
@@ -227,6 +236,7 @@ Un usuario con rol admin debe poder gestionar contenido autorizado sin que un re
 - [ ] Probar restricciones de permisos.
 
 ### Resultado esperado
+
 Los flujos principales de LexManhwa deben poder probarse automáticamente y los errores importantes deben estar identificados antes del deployment.
 
 ---
@@ -254,6 +264,7 @@ Los flujos principales de LexManhwa deben poder probarse automáticamente y los 
 - [ ] Verificar que los drafts no sean accesibles públicamente.
 
 ### Resultado esperado
+
 La aplicación debe cumplir las reglas de seguridad definidas en `docs/security.md` antes de considerarse lista para producción.
 
 ---
@@ -274,6 +285,7 @@ La aplicación debe cumplir las reglas de seguridad definidas en `docs/security.
 - [ ] Revisar errores de red.
 
 ### Resultado esperado
+
 La aplicación debe ofrecer una experiencia razonable en dispositivos de escritorio y móviles, especialmente durante la carga de imágenes y capítulos.
 
 ---
@@ -297,6 +309,7 @@ La aplicación debe ofrecer una experiencia razonable en dispositivos de escrito
 - [ ] Realizar deployment estable.
 
 ### Resultado esperado
+
 LexManhwa debe estar disponible mediante una URL pública y funcionar correctamente con la configuración de producción.
 
 ---
@@ -320,6 +333,7 @@ LexManhwa debe estar disponible mediante una URL pública y funcionar correctame
 - [ ] Verificar que no existan secretos en GitHub.
 
 ### Resultado esperado
+
 El proyecto debe quedar presentado como un proyecto de portafolio completo, con código, documentación, aplicación desplegada y explicación de las principales decisiones técnicas.
 
 ---
@@ -369,6 +383,7 @@ Portafolio
 Cada fase debe completarse de forma funcional antes de avanzar a la siguiente fase importante.
 
 Las decisiones arquitectónicas y de seguridad deben seguir los documentos:
+
 - `docs/architecture.md`
 - `docs/database.md`
 - `docs/security.md`
@@ -380,6 +395,7 @@ Copilot Agent debe consultar estos documentos antes de realizar cambios importan
 No se deben introducir tecnologías o servicios innecesarios para el alcance inicial de LexManhwa.
 
 El proyecto debe priorizar:
+
 - Simplicidad
 - Mantenibilidad
 - Seguridad

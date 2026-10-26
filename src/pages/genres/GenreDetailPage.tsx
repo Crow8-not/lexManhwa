@@ -20,7 +20,9 @@ function GenreDetailPage() {
         .filter((manhwa) => slugify(manhwa.genre) === genreSlug)
         .map((manhwa) => ({
           ...manhwa,
-          _latestChapterLabel: formatChapterLabel(getLatestChapter(manhwa.id, chapters)),
+          _latestChapterLabel: formatChapterLabel(
+            getLatestChapter(manhwa.id, chapters),
+          ),
         })),
     [manhwas, chapters, genreSlug],
   )

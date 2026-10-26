@@ -333,7 +333,10 @@ export function isFavorite(manhwaId: string): boolean {
 export function loginAdmin() {
   setDemoState((state) => ({
     ...state,
-    adminSession: { isAuthenticated: true, loginTime: new Date().toISOString() },
+    adminSession: {
+      isAuthenticated: true,
+      loginTime: new Date().toISOString(),
+    },
   }))
 }
 

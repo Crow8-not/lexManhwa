@@ -44,14 +44,24 @@ export default function LoginPage() {
       <Card className="w-full max-w-md">
         <div className="p-8 space-y-6">
           <header className="text-center">
-            <h1 className="text-2xl font-bold text-slate-100">Panel de Administración</h1>
-            <p className="mt-2 text-slate-400">Inicia sesión para gestionar el catálogo</p>
+            <h1 className="text-2xl font-bold text-slate-100">
+              Panel de Administración
+            </h1>
+            <p className="mt-2 text-slate-400">
+              Inicia sesión para gestionar el catálogo
+            </p>
           </header>
 
           <div className="bg-surface/50 rounded-xl p-4 text-xs text-slate-400 space-y-1">
-            <p><strong>Credenciales de prueba:</strong></p>
-            <p>Email: <code className="text-slate-300">admin@demo.com</code></p>
-            <p>Contraseña: <code className="text-slate-300">demo1234</code></p>
+            <p>
+              <strong>Credenciales de prueba:</strong>
+            </p>
+            <p>
+              Email: <code className="text-slate-300">admin@demo.com</code>
+            </p>
+            <p>
+              Contraseña: <code className="text-slate-300">demo1234</code>
+            </p>
           </div>
 
           {error && (

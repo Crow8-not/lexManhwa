@@ -80,7 +80,9 @@ function ManhwaDetailPage() {
                 {statusLabels[manhwa.status]}
               </Badge>
               <Badge tone="neutral">
-                {latestChapter ? formatChapterLabel(latestChapter) : 'Sin capítulos'}
+                {latestChapter
+                  ? formatChapterLabel(latestChapter)
+                  : 'Sin capítulos'}
               </Badge>
               <FavoriteButton manhwaId={manhwa.id} className="ml-auto" />
             </div>

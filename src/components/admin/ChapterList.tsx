@@ -28,7 +28,9 @@ export default function ChapterList({ manhwaId }: ChapterListProps) {
   const [showForm, setShowForm] = useState(false)
   const [editingChapter, setEditingChapter] = useState<Chapter | null>(null)
 
-  const manhwaChapters = chapters.filter((c) => c.manhwaId === manhwaId).sort((a, b) => a.number - b.number)
+  const manhwaChapters = chapters
+    .filter((c) => c.manhwaId === manhwaId)
+    .sort((a, b) => a.number - b.number)
 
   const handleNewChapter = () => {
     setEditingChapter(null)
@@ -48,7 +50,9 @@ export default function ChapterList({ manhwaId }: ChapterListProps) {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h3 className="text-lg font-semibold text-slate-100">Capítulos ({manhwaChapters.length})</h3>
+        <h3 className="text-lg font-semibold text-slate-100">
+          Capítulos ({manhwaChapters.length})
+        </h3>
         <Button onClick={handleNewChapter} size="sm">
           Nuevo capítulo
         </Button>
@@ -61,7 +65,10 @@ export default function ChapterList({ manhwaId }: ChapterListProps) {
       ) : (
         <div className="space-y-3">
           {manhwaChapters.map((chapter) => (
-            <Card key={chapter.id} className="p-4 flex items-center justify-between gap-4">
+            <Card
+              key={chapter.id}
+              className="p-4 flex items-center justify-between gap-4"
+            >
               <div className="flex items-center gap-4 flex-1 min-w-0">
                 <div className="w-10 text-center">
                   <span className="text-sm font-mono font-semibold text-slate-300">
@@ -69,13 +76,21 @@ export default function ChapterList({ manhwaId }: ChapterListProps) {
                   </span>
                 </div>
                 <div className="min-w-0">
-                  <h4 className="font-medium text-slate-100 truncate">{chapter.title}</h4>
-                  <p className="text-sm text-slate-400">{chapter.pages.length} páginas</p>
+                  <h4 className="font-medium text-slate-100 truncate">
+                    {chapter.title}
+                  </h4>
+                  <p className="text-sm text-slate-400">
+                    {chapter.pages.length} páginas
+                  </p>
                 </div>
               </div>
               <div className="flex items-center gap-2">
                 <Badge tone="neutral">{chapter.slug}</Badge>
-                <Button variant="ghost" size="sm" onClick={() => handleEditChapter(chapter)}>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => handleEditChapter(chapter)}
+                >
                   Editar
                 </Button>
               </div>

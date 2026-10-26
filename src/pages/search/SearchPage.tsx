@@ -50,7 +50,9 @@ function SearchPage() {
         })
         .map((manhwa) => ({
           ...manhwa,
-          _latestChapterLabel: formatChapterLabel(getLatestChapter(manhwa.id, chapters)),
+          _latestChapterLabel: formatChapterLabel(
+            getLatestChapter(manhwa.id, chapters),
+          ),
         })),
     [genre, manhwas, chapters, normalizedQuery, status],
   )

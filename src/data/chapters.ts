@@ -18,10 +18,7 @@ function createPageImageUrl(
   return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`
 }
 
-function createPages(
-  manhwaId: string,
-  chapterNumber: number,
-): ChapterPage[] {
+function createPages(manhwaId: string, chapterNumber: number): ChapterPage[] {
   return Array.from({ length: PAGES_PER_CHAPTER }, (_, index) => {
     const pageNumber = index + 1
 

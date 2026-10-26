@@ -495,12 +495,13 @@ La confirmación debe explicar claramente qué acción se realizará.
 Los componentes visuales deben estar separados de la lógica de negocio cuando sea razonable.
 
 Evitar colocar lógica compleja de:
+
 - Supabase.
 - Autenticación.
 - Consultas.
 - Autorización.
 - Gestión de archivos.
-directamente dentro de componentes visuales pequeños.
+  directamente dentro de componentes visuales pequeños.
 
 El sistema visual debe facilitar la reutilización y el mantenimiento.
 
@@ -517,6 +518,7 @@ Antes de crear componentes visuales importantes, Copilot Agent debe revisar:
 - `docs/roadmap.md`
 
 Debe respetar:
+
 - El sistema visual definido.
 - El responsive design.
 - La accesibilidad.

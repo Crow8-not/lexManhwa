@@ -21,7 +21,10 @@ function AppRoutes() {
       <Route path="/generos" element={<GenresPage />} />
       <Route path="/generos/:genreSlug" element={<GenreDetailPage />} />
       <Route path="/manhwa/:slug" element={<ManhwaDetailPage />} />
-      <Route path="/manhwa/:slug/capitulo/:chapterSlug" element={<ReaderPage />} />
+      <Route
+        path="/manhwa/:slug/capitulo/:chapterSlug"
+        element={<ReaderPage />}
+      />
       <Route path="/lector" element={<ReaderPage />} />
       <Route path="/como-funciona" element={<HowItWorksPage />} />
       <Route path="/admin/login" element={<LoginPage />} />

@@ -8,9 +8,7 @@ const navigationItems = [
   { label: 'Géneros', to: '/generos' },
 ]
 
-const authItems = [
-  { label: 'Acceder', to: '/admin/login' },
-]
+const authItems = [{ label: 'Acceder', to: '/admin/login' }]
 
 const DEMO_BANNER_KEY = 'lexmanhwa:demo-banner-dismissed'
 

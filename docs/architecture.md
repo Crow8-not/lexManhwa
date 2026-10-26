@@ -194,6 +194,7 @@ No crear carpetas solamente porque estén incluidas en esta documentación.
 ## 7. Áreas principales
 
 ### Área pública
+
 - Inicio.
 - Explorar.
 - Búsqueda.
@@ -202,11 +203,13 @@ No crear carpetas solamente porque estén incluidas en esta documentación.
 - Lectura de capítulos.
 
 ### Área autenticada
+
 - Perfil.
 - Favoritos.
 - Progreso de lectura.
 
 ### Área administrativa
+
 - Panel administrativo.
 - Gestión de manhwas.
 - Gestión de capítulos.

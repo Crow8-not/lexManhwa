@@ -17,9 +17,15 @@ type PageManagerProps = {
   onPagesChange: (pages: ChapterPage[]) => void
 }
 
-export default function PageManager({ pages: initialPages, chapterId, onPagesChange }: PageManagerProps) {
+export default function PageManager({
+  pages: initialPages,
+  chapterId,
+  onPagesChange,
+}: PageManagerProps) {
   const [pages, setPages] = useState<ChapterPage[]>(initialPages)
-  const [asyncPreviewUrls, setAsyncPreviewUrls] = useState<Record<string, string>>({})
+  const [asyncPreviewUrls, setAsyncPreviewUrls] = useState<
+    Record<string, string>
+  >({})
 
   const syncPreviewUrls = useMemo(() => {
     const urls: Record<string, string> = {}
@@ -45,19 +51,21 @@ export default function PageManager({ pages: initialPages, chapterId, onPagesCha
 
   const previewUrls = useMemo(
     () => ({ ...syncPreviewUrls, ...asyncPreviewUrls }),
-    [syncPreviewUrls, asyncPreviewUrls]
+    [syncPreviewUrls, asyncPreviewUrls],
   )
 
-  const handleImageKeyChange = useCallback((pageId: string, imageKey: string | undefined) => {
-    setPages((prev) =>
-      prev.map((page) =>
-        page.id === pageId ? { ...page, imageKey } : page
+  const handleImageKeyChange = useCallback(
+    (pageId: string, imageKey: string | undefined) => {
+      setPages((prev) =>
+        prev.map((page) => (page.id === pageId ? { ...page, imageKey } : page)),
       )
-    )
-  }, [])
+    },
+    [],
+  )
 
   const addPage = () => {
-    const newPageNumber = pages.length > 0 ? Math.max(...pages.map((p) => p.pageNumber)) + 1 : 1
+    const newPageNumber =
+      pages.length > 0 ? Math.max(...pages.map((p) => p.pageNumber)) + 1 : 1
     const newPage: ChapterPage = {
       id: `${chapterId}-page-${newPageNumber}-${Date.now()}`,
       pageNumber: newPageNumber,
@@ -69,7 +77,8 @@ export default function PageManager({ pages: initialPages, chapterId, onPagesCha
 
   const removePage = (pageId: string) => {
     if (!confirm('¿Eliminar esta página?')) return
-    const newPages = pages.filter((p) => p.id !== pageId)
+    const newPages = pages
+      .filter((p) => p.id !== pageId)
       .map((page, index) => ({ ...page, pageNumber: index + 1 }))
     setPages(newPages)
     onPagesChange(newPages)
@@ -100,7 +109,9 @@ export default function PageManager({ pages: initialPages, chapterId, onPagesCha
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h3 className="text-lg font-semibold text-slate-100">Páginas ({pages.length})</h3>
+        <h3 className="text-lg font-semibold text-slate-100">
+          Páginas ({pages.length})
+        </h3>
         <Button variant="secondary" onClick={addPage} size="sm">
           Añadir página
         </Button>
@@ -108,7 +119,9 @@ export default function PageManager({ pages: initialPages, chapterId, onPagesCha
 
       {pages.length === 0 ? (
         <Card className="p-8 text-center">
-          <p className="text-slate-400">No hay páginas. Añade la primera página.</p>
+          <p className="text-slate-400">
+            No hay páginas. Añade la primera página.
+          </p>
         </Card>
       ) : (
         <div className="space-y-3">
@@ -161,7 +174,11 @@ export default function PageManager({ pages: initialPages, chapterId, onPagesCha
                     ↓
                   </Button>
                 </div>
-                <Button variant="danger" size="sm" onClick={() => removePage(page.id)}>
+                <Button
+                  variant="danger"
+                  size="sm"
+                  onClick={() => removePage(page.id)}
+                >
                   Eliminar
                 </Button>
               </div>

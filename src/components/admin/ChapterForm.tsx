@@ -26,7 +26,12 @@ type ChapterFormProps = {
   onClose: () => void
 }
 
-export default function ChapterForm({ manhwaId, chapterId, initialData, onClose }: ChapterFormProps) {
+export default function ChapterForm({
+  manhwaId,
+  chapterId,
+  initialData,
+  onClose,
+}: ChapterFormProps) {
   const navigate = useNavigate()
   const { chapters, setDemoState } = useDemoCatalog()
   const [isEditing] = useState(!!chapterId)
@@ -36,7 +41,9 @@ export default function ChapterForm({ manhwaId, chapterId, initialData, onClose 
   const [formData, setFormData] = useState<ChapterFormData>(() => ({
     number: initialData?.number || 1,
     title: initialData?.title || '',
-    slug: initialData?.slug || (initialData?.title ? slugify(initialData.title) : ''),
+    slug:
+      initialData?.slug ||
+      (initialData?.title ? slugify(initialData.title) : ''),
     pages: initialData?.pages || [],
   }))
 
@@ -131,7 +138,8 @@ export default function ChapterForm({ manhwaId, chapterId, initialData, onClose 
   }
 
   const handleDelete = () => {
-    if (!chapterId || !confirm('¿Eliminar este capítulo y todas sus páginas?')) return
+    if (!chapterId || !confirm('¿Eliminar este capítulo y todas sus páginas?'))
+      return
 
     setDemoState((state: DemoState) => ({
       ...state,

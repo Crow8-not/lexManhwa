@@ -17,11 +17,12 @@ const statusLabels: Record<Manhwa['status'], string> = {
   hiatus: 'En pausa',
 }
 
-const statusTones: Record<Manhwa['status'], 'success' | 'warning' | 'neutral'> = {
-  ongoing: 'success',
-  completed: 'neutral',
-  hiatus: 'warning',
-}
+const statusTones: Record<Manhwa['status'], 'success' | 'warning' | 'neutral'> =
+  {
+    ongoing: 'success',
+    completed: 'neutral',
+    hiatus: 'warning',
+  }
 
 function ManhwaCard({
   manhwa,
@@ -47,7 +48,11 @@ function ManhwaCard({
             </p>
           </div>
           {showFavorite && (
-            <FavoriteButton manhwaId={manhwa.id} size="sm" className="shrink-0" />
+            <FavoriteButton
+              manhwaId={manhwa.id}
+              size="sm"
+              className="shrink-0"
+            />
           )}
         </div>
         <Badge

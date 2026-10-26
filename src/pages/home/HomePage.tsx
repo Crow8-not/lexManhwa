@@ -19,7 +19,9 @@ function HomePage() {
     () =>
       manhwas.map((manhwa) => ({
         ...manhwa,
-        _latestChapterLabel: formatChapterLabel(getLatestChapter(manhwa.id, chapters)),
+        _latestChapterLabel: formatChapterLabel(
+          getLatestChapter(manhwa.id, chapters),
+        ),
       })),
     [manhwas, chapters],
   )
@@ -49,7 +51,9 @@ function HomePage() {
   )
 
   const favoriteIds = getFavorites('demo-user')
-  const favoriteManhwas = manhwasWithLatest.filter((m) => favoriteIds.includes(m.id)).slice(0, 5)
+  const favoriteManhwas = manhwasWithLatest
+    .filter((m) => favoriteIds.includes(m.id))
+    .slice(0, 5)
 
   return (
     <main id="inicio" className="surface-grid">
@@ -64,7 +68,10 @@ function HomePage() {
             historias sin perder de vista lo importante: leer.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <Link to="/explorar" className="inline-flex min-h-11 items-center justify-center rounded-xl bg-primary-500 px-4 py-2 text-sm font-semibold text-white shadow-glow transition-colors hover:bg-primary-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-400">
+            <Link
+              to="/explorar"
+              className="inline-flex min-h-11 items-center justify-center rounded-xl bg-primary-500 px-4 py-2 text-sm font-semibold text-white shadow-glow transition-colors hover:bg-primary-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-400"
+            >
               Explorar historias
             </Link>
           </div>
@@ -186,14 +193,16 @@ function HomePage() {
             </h2>
           </div>
           <div className="grid grid-cols-3 gap-2 sm:grid-cols-4 sm:gap-4 lg:grid-cols-5">
-            {continueReading.slice(0, 5).map(({ manhwa, chapter, progress }) => (
-              <ManhwaCard
-                key={manhwa.id}
-                manhwa={manhwa}
-                latestChapterLabel={`Página ${progress.pageNumber} — ${formatChapterLabel(chapter)}`}
-                showFavorite
-              />
-            ))}
+            {continueReading
+              .slice(0, 5)
+              .map(({ manhwa, chapter, progress }) => (
+                <ManhwaCard
+                  key={manhwa.id}
+                  manhwa={manhwa}
+                  latestChapterLabel={`Página ${progress.pageNumber} — ${formatChapterLabel(chapter)}`}
+                  showFavorite
+                />
+              ))}
           </div>
         </section>
       )}

@@ -31,7 +31,9 @@ export function ChapterNavigation({
       <button
         type="button"
         disabled={!hasPrev}
-        onClick={() => hasPrev && onNavigate(sortedChapters[currentIndex - 1].slug)}
+        onClick={() =>
+          hasPrev && onNavigate(sortedChapters[currentIndex - 1].slug)
+        }
         className="inline-flex items-center gap-2 min-h-11 px-4 py-2 text-sm font-semibold rounded-xl bg-elevated border border-line text-white disabled:opacity-30 disabled:cursor-not-allowed hover:bg-surface transition-colors"
         aria-label="Capítulo anterior"
       >
@@ -50,7 +52,8 @@ export function ChapterNavigation({
         >
           {sortedChapters.map((chapter) => (
             <option key={chapter.id} value={chapter.slug}>
-              Capítulo {String(chapter.number).padStart(2, '0')} — {chapter.title}
+              Capítulo {String(chapter.number).padStart(2, '0')} —{' '}
+              {chapter.title}
             </option>
           ))}
         </select>
@@ -59,7 +62,9 @@ export function ChapterNavigation({
       <button
         type="button"
         disabled={!hasNext}
-        onClick={() => hasNext && onNavigate(sortedChapters[currentIndex + 1].slug)}
+        onClick={() =>
+          hasNext && onNavigate(sortedChapters[currentIndex + 1].slug)
+        }
         className="inline-flex items-center gap-2 min-h-11 px-4 py-2 text-sm font-semibold rounded-xl bg-primary-500 text-white disabled:opacity-30 disabled:cursor-not-allowed hover:bg-primary-400 transition-colors"
         aria-label="Capítulo siguiente"
       >

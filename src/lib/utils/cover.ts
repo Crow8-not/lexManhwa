@@ -1,11 +1,16 @@
 import type { CoverVariant } from '../../types/manhwa'
 
 const variantGradients: Record<CoverVariant, string> = {
-  'indigo-coral': 'linear-gradient(135deg, #4f46e5 0%, #6366f1 30%, #ec4899 70%, #f43f5e 100%)',
-  'cyan-violet': 'linear-gradient(135deg, #06b6d4 0%, #0891b2 30%, #8b5cf6 70%, #7c3aed 100%)',
-  'amber-rose': 'linear-gradient(135deg, #f59e0b 0%, #f97316 30%, #f43f5e 70%, #e11d48 100%)',
-  'emerald-blue': 'linear-gradient(135deg, #10b981 0%, #059669 30%, #06b6d4 70%, #0891b2 100%)',
-  'violet-amber': 'linear-gradient(135deg, #8b5cf6 0%, #7c3aed 30%, #f59e0b 70%, #d97706 100%)',
+  'indigo-coral':
+    'linear-gradient(135deg, #4f46e5 0%, #6366f1 30%, #ec4899 70%, #f43f5e 100%)',
+  'cyan-violet':
+    'linear-gradient(135deg, #06b6d4 0%, #0891b2 30%, #8b5cf6 70%, #7c3aed 100%)',
+  'amber-rose':
+    'linear-gradient(135deg, #f59e0b 0%, #f97316 30%, #f43f5e 70%, #e11d48 100%)',
+  'emerald-blue':
+    'linear-gradient(135deg, #10b981 0%, #059669 30%, #06b6d4 70%, #0891b2 100%)',
+  'violet-amber':
+    'linear-gradient(135deg, #8b5cf6 0%, #7c3aed 30%, #f59e0b 70%, #d97706 100%)',
 }
 
 function truncateTitle(title: string, maxLines = 2): string {

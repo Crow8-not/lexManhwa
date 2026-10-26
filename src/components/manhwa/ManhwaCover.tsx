@@ -32,7 +32,9 @@ function ManhwaCover({
         loading="lazy"
         className="absolute inset-0 h-full w-full object-cover opacity-90"
       />
-      <div className={`absolute inset-0 bg-gradient-to-br ${coverClasses[manhwa.cover]}`} />
+      <div
+        className={`absolute inset-0 bg-gradient-to-br ${coverClasses[manhwa.cover]}`}
+      />
       <div className="relative z-10 w-full p-2 sm:p-3">
         {showGenre ? <Badge tone="primary">{manhwa.genre}</Badge> : null}
       </div>
