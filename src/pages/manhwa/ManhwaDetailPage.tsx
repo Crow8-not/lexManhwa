@@ -10,6 +10,7 @@ import {
   formatChapterLabel,
   getChapterCount,
   getFirstChapter,
+  getReadingProgress,
 } from '../../lib/demo/selectors'
 import type { ManhwaStatus } from '../../types/manhwa'
 
@@ -26,7 +27,7 @@ const statusTones: Record<ManhwaStatus, 'success' | 'warning' | 'neutral'> = {
 }
 
 function ManhwaDetailPage() {
-  const { manhwas, chapters } = useDemoCatalog()
+  const { manhwas, chapters, progress } = useDemoCatalog()
   const { slug } = useParams<{ slug: string }>()
   const manhwa = manhwas.find((item) => item.slug === slug)
 
@@ -52,6 +53,10 @@ function ManhwaDetailPage() {
   const latestChapter = getLatestChapter(manhwa.id, chapters)
   const firstChapter = getFirstChapter(manhwa.id, chapters)
   const chapterCount = getChapterCount(manhwa.id, chapters)
+  const readingProgress = getReadingProgress(manhwa.id, progress)
+  const continueChapter = readingProgress
+    ? chapters.find((c) => c.id === readingProgress.chapterId)
+    : null
 
   return (
     <main className="surface-grid min-h-[calc(100vh-137px)] px-4 py-12 sm:px-8 sm:py-16">
@@ -113,6 +118,14 @@ function ManhwaDetailPage() {
               </p>
             </Card>
             <div className="mt-6 flex flex-wrap gap-3">
+              {continueChapter && readingProgress && (
+                <Link
+                  to={`/manhwa/${manhwa.slug}/capitulo/${continueChapter.slug}`}
+                  className="inline-flex min-h-11 items-center justify-center rounded-xl bg-emerald-500 px-4 py-2 text-sm font-semibold text-white shadow-glow transition-colors hover:bg-emerald-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400"
+                >
+                  Continuar leyendo (Capítulo {readingProgress.pageNumber})
+                </Link>
+              )}
               {firstChapter && (
                 <Link
                   to={`/manhwa/${manhwa.slug}/capitulo/${firstChapter.slug}`}

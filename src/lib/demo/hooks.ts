@@ -12,6 +12,7 @@ export function useDemoCatalog() {
   return {
     manhwas: state.manhwas,
     chapters: state.chapters,
+    progress: state.progress,
     persistenceAvailable: isPersistenceAvailable(),
     resetDemoState,
   }

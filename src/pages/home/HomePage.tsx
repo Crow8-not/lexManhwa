@@ -5,11 +5,15 @@ import Input from '../../components/ui/Input'
 import StatusMessage from '../../components/ui/StatusMessage'
 import ManhwaCard from '../../components/manhwa/ManhwaCard'
 import { useDemoCatalog } from '../../lib/demo/hooks'
-import { getLatestChapter, formatChapterLabel } from '../../lib/demo/selectors'
+import {
+  getLatestChapter,
+  formatChapterLabel,
+  getContinueReading,
+} from '../../lib/demo/selectors'
 import { Link } from 'react-router-dom'
 
 function HomePage() {
-  const { manhwas, chapters } = useDemoCatalog()
+  const { manhwas, chapters, progress } = useDemoCatalog()
 
   const manhwasWithLatest = useMemo(
     () =>
@@ -37,6 +41,11 @@ function HomePage() {
         return secondChapter.number - firstChapter.number
       }),
     [manhwasWithLatest, chapters],
+  )
+
+  const continueReading = useMemo(
+    () => getContinueReading(manhwas, chapters, progress),
+    [manhwas, chapters, progress],
   )
 
   return (
@@ -137,6 +146,31 @@ function HomePage() {
           ))}
         </div>
       </section>
+
+      {continueReading.length > 0 && (
+        <section
+          className="mx-auto max-w-content space-y-6 px-4 pb-12 sm:space-y-8 sm:px-8 sm:pb-16"
+          id="continuar-leyendo"
+        >
+          <div>
+            <p className="text-sm font-semibold uppercase tracking-wider text-emerald-300">
+              Progreso de lectura
+            </p>
+            <h2 className="mt-2 text-xl font-bold text-white sm:text-3xl">
+              Continuar leyendo
+            </h2>
+          </div>
+          <div className="grid grid-cols-3 gap-2 sm:grid-cols-4 sm:gap-4 lg:grid-cols-5">
+            {continueReading.slice(0, 5).map(({ manhwa, chapter, progress }) => (
+              <ManhwaCard
+                key={manhwa.id}
+                manhwa={manhwa}
+                latestChapterLabel={`Página ${progress.pageNumber} — ${formatChapterLabel(chapter)}`}
+              />
+            ))}
+          </div>
+        </section>
+      )}
 
       <section
         id="estados"
