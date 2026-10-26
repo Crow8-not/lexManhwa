@@ -5,6 +5,7 @@ import BrowsePage from '../pages/browse/BrowsePage'
 import GenreDetailPage from '../pages/genres/GenreDetailPage'
 import GenresPage from '../pages/genres/GenresPage'
 import HomePage from '../pages/home/HomePage'
+import HowItWorksPage from '../pages/HowItWorksPage'
 import LoginPage from '../pages/auth/LoginPage'
 import ManhwaDetailPage from '../pages/manhwa/ManhwaDetailPage'
 import NotFoundPage from '../pages/NotFoundPage'
@@ -22,6 +23,7 @@ function AppRoutes() {
       <Route path="/manhwa/:slug" element={<ManhwaDetailPage />} />
       <Route path="/manhwa/:slug/capitulo/:chapterSlug" element={<ReaderPage />} />
       <Route path="/lector" element={<ReaderPage />} />
+      <Route path="/como-funciona" element={<HowItWorksPage />} />
       <Route path="/admin/login" element={<LoginPage />} />
       <Route element={<AdminRoute />}>
         <Route path="/admin" element={<AdminPage />} />

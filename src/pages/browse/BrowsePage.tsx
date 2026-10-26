@@ -21,7 +21,7 @@ function BrowsePage() {
       <section className="mx-auto max-w-content">
         <div className="max-w-2xl">
           <p className="text-sm font-semibold uppercase tracking-wider text-primary-300">
-            Catálogo temporal
+            Catálogo de demostración
           </p>
           <h1 className="mt-3 text-3xl font-bold text-white sm:text-5xl">
             Explorar manhwas

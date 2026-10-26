@@ -20,7 +20,6 @@ function ManhwaCover({
   className = '',
   showGenre = false,
 }: ManhwaCoverProps) {
-  const imageUrl = manhwa.coverImage || `https://picsum.photos/seed/${manhwa.slug}/300/450`;
   return (
     <div
       aria-label={`Portada de ${manhwa.title}`}
@@ -28,7 +27,7 @@ function ManhwaCover({
       role="img"
     >
       <img
-        src={imageUrl}
+        src={manhwa.coverImage}
         alt={manhwa.title}
         loading="lazy"
         className="absolute inset-0 h-full w-full object-cover opacity-90"

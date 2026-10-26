@@ -50,10 +50,17 @@ export type AdminSession = {
   loginTime: string
 }
 
+export type Favorite = {
+  userId: string
+  manhwaId: string
+  createdAt: string
+}
+
 export type DemoState = {
   version: number
   manhwas: Manhwa[]
   chapters: Chapter[]
   progress: ReadingProgress[]
+  favorites: Favorite[]
   adminSession: AdminSession
 }

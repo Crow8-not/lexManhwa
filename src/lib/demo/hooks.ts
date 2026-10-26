@@ -1,6 +1,8 @@
 import { useSyncExternalStore } from 'react'
 import {
   getDemoState,
+  getFavorites,
+  isFavorite,
   isPersistenceAvailable,
   resetDemoState,
   setDemoState,
@@ -8,6 +10,7 @@ import {
   loginAdmin,
   logoutAdmin,
   isAdminAuthenticated,
+  toggleFavorite,
 } from './store'
 
 export function useDemoCatalog() {
@@ -17,6 +20,7 @@ export function useDemoCatalog() {
     manhwas: state.manhwas,
     chapters: state.chapters,
     progress: state.progress,
+    favorites: state.favorites,
     adminSession: state.adminSession,
     persistenceAvailable: isPersistenceAvailable(),
     resetDemoState,
@@ -24,5 +28,8 @@ export function useDemoCatalog() {
     loginAdmin,
     logoutAdmin,
     isAdminAuthenticated,
+    getFavorites,
+    toggleFavorite,
+    isFavorite,
   }
 }

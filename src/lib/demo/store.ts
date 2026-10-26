@@ -6,13 +6,14 @@ import type {
   ChapterPage,
   CoverVariant,
   DemoState,
+  Favorite,
   Manhwa,
   ManhwaStatus,
   ReadingProgress,
 } from '../../types/manhwa'
 
-export const DEMO_STORAGE_KEY = 'lexmanhwa:demo:v4'
-export const DEMO_STATE_VERSION = 4
+export const DEMO_STORAGE_KEY = 'lexmanhwa:demo:v5'
+export const DEMO_STATE_VERSION = 5
 
 type DemoUpdater = (state: DemoState) => DemoState
 type DemoListener = () => void
@@ -134,6 +135,18 @@ function isAdminSession(value: unknown): value is AdminSession {
   )
 }
 
+function isFavoriteRecord(value: unknown): value is Favorite {
+  if (!isRecord(value)) {
+    return false
+  }
+
+  return (
+    isString(value.userId) &&
+    isString(value.manhwaId) &&
+    isString(value.createdAt)
+  )
+}
+
 function isDemoState(value: unknown): value is DemoState {
   return (
     isRecord(value) &&
@@ -144,6 +157,8 @@ function isDemoState(value: unknown): value is DemoState {
     value.chapters.every(isChapter) &&
     Array.isArray(value.progress) &&
     value.progress.every(isReadingProgress) &&
+    Array.isArray(value.favorites) &&
+    value.favorites.every(isFavoriteRecord) &&
     isAdminSession(value.adminSession)
   )
 }
@@ -157,6 +172,7 @@ function createSeedState(): DemoState {
       pages: chapter.pages.map((page) => ({ ...page })),
     })),
     progress: [],
+    favorites: [],
     adminSession: { isAuthenticated: false, loginTime: '' },
   }
 }
@@ -272,6 +288,45 @@ export function getLatestProgress(
     return null
   }
   return { manhwa, chapter, progress: latest }
+}
+
+export function getFavorites(userId: string): string[] {
+  const state = getDemoState()
+  return state.favorites
+    .filter((f) => f.userId === userId)
+    .map((f) => f.manhwaId)
+}
+
+export function toggleFavorite(manhwaId: string): boolean {
+  const userId = 'demo-user'
+  let newIsFavorite = false
+  setDemoState((state) => {
+    const existingIndex = state.favorites.findIndex(
+      (f) => f.userId === userId && f.manhwaId === manhwaId,
+    )
+    const nextFavorites = [...state.favorites]
+    if (existingIndex >= 0) {
+      nextFavorites.splice(existingIndex, 1)
+      newIsFavorite = false
+    } else {
+      nextFavorites.push({
+        userId,
+        manhwaId,
+        createdAt: new Date().toISOString(),
+      })
+      newIsFavorite = true
+    }
+    return { ...state, favorites: nextFavorites }
+  })
+  return newIsFavorite
+}
+
+export function isFavorite(manhwaId: string): boolean {
+  const userId = 'demo-user'
+  const state = getDemoState()
+  return state.favorites.some(
+    (f) => f.userId === userId && f.manhwaId === manhwaId,
+  )
 }
 
 export function loginAdmin() {

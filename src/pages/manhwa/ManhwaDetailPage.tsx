@@ -2,6 +2,7 @@ import { Link, useParams } from 'react-router-dom'
 import Badge from '../../components/ui/Badge'
 import Card from '../../components/ui/Card'
 import ManhwaCover from '../../components/manhwa/ManhwaCover'
+import FavoriteButton from '../../components/manhwa/FavoriteButton'
 import StatusMessage from '../../components/ui/StatusMessage'
 import { useDemoCatalog } from '../../lib/demo/hooks'
 import {
@@ -81,6 +82,7 @@ function ManhwaDetailPage() {
               <Badge tone="neutral">
                 {latestChapter ? formatChapterLabel(latestChapter) : 'Sin capítulos'}
               </Badge>
+              <FavoriteButton manhwaId={manhwa.id} className="ml-auto" />
             </div>
             <h1 className="mt-4 text-3xl font-bold tracking-tight text-white sm:text-5xl">
               {manhwa.title}

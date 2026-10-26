@@ -13,7 +13,7 @@ import {
 import { Link } from 'react-router-dom'
 
 function HomePage() {
-  const { manhwas, chapters, progress } = useDemoCatalog()
+  const { manhwas, chapters, progress, getFavorites } = useDemoCatalog()
 
   const manhwasWithLatest = useMemo(
     () =>
@@ -48,11 +48,13 @@ function HomePage() {
     [manhwas, chapters, progress],
   )
 
+  const favoriteIds = getFavorites('demo-user')
+  const favoriteManhwas = manhwasWithLatest.filter((m) => favoriteIds.includes(m.id)).slice(0, 5)
+
   return (
     <main id="inicio" className="surface-grid">
       <section className="mx-auto max-w-content px-4 pb-12 pt-12 sm:px-8 sm:pb-24 sm:pt-24">
         <div className="max-w-3xl">
-          <Badge tone="primary">Sistema visual · Fase 2</Badge>
           <h1 className="mt-5 text-3xl font-bold tracking-tight text-white sm:mt-6 sm:text-6xl">
             Historias que merecen
             <span className="block text-primary-300">una pausa.</span>
@@ -65,20 +67,43 @@ function HomePage() {
             <Link to="/explorar" className="inline-flex min-h-11 items-center justify-center rounded-xl bg-primary-500 px-4 py-2 text-sm font-semibold text-white shadow-glow transition-colors hover:bg-primary-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-400">
               Explorar historias
             </Link>
-            <Link to="/" className="inline-flex min-h-11 items-center justify-center rounded-xl bg-ink border border-line px-4 py-2 text-sm font-semibold text-slate-300 transition-colors hover:bg-elevated hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-500">
-              Ver componentes
-            </Link>
           </div>
         </div>
       </section>
 
+      {favoriteManhwas.length > 0 && (
+        <section
+          id="favoritos"
+          className="mx-auto max-w-content space-y-6 px-4 pb-12 sm:space-y-8 sm:px-8 sm:pb-16"
+        >
+          <div>
+            <p className="text-sm font-semibold uppercase tracking-wider text-rose-300">
+              Favoritos
+            </p>
+            <h2 className="mt-2 text-xl font-bold text-white sm:text-3xl">
+              Tus historias guardadas
+            </h2>
+          </div>
+          <div className="grid grid-cols-3 gap-2 sm:grid-cols-4 sm:gap-4 lg:grid-cols-5">
+            {favoriteManhwas.map((manhwa) => (
+              <ManhwaCard
+                key={manhwa.id}
+                manhwa={manhwa}
+                latestChapterLabel={manhwa._latestChapterLabel}
+                showFavorite
+              />
+            ))}
+          </div>
+        </section>
+      )}
+
       <section
-        id="componentes"
+        id="catalogo"
         className="mx-auto max-w-content space-y-6 px-4 pb-12 sm:space-y-8 sm:px-8 sm:pb-16"
       >
         <div>
           <p className="text-sm font-semibold uppercase tracking-wider text-primary-300">
-            Selección visual
+            Catálogo de demostración
           </p>
           <h2 className="mt-2 text-xl font-bold text-white sm:text-3xl">
             Una interfaz consistente
@@ -118,7 +143,7 @@ function HomePage() {
       >
         <div>
           <p className="text-sm font-semibold uppercase tracking-wider text-primary-300">
-            Catálogo temporal
+            Catálogo de demostración
           </p>
           <h2 className="mt-2 text-xl font-bold text-white sm:text-3xl">
             Últimas actualizaciones
@@ -166,6 +191,7 @@ function HomePage() {
                 key={manhwa.id}
                 manhwa={manhwa}
                 latestChapterLabel={`Página ${progress.pageNumber} — ${formatChapterLabel(chapter)}`}
+                showFavorite
               />
             ))}
           </div>
@@ -200,7 +226,7 @@ function HomePage() {
             id="demo-search"
             label="Campo de ejemplo"
             placeholder="Buscar una historia..."
-            hint="Los formularios funcionales llegarán en una fase posterior."
+            hint="Los formularios funcionales llegarán en una versión posterior."
           />
           <div className="flex flex-wrap gap-2">
             <Badge tone="success">Publicado</Badge>

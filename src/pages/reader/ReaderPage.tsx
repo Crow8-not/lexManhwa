@@ -209,6 +209,12 @@ export default function ReaderPage() {
               <h1 className="text-lg font-bold truncate">
                 {manhwa.title} — Capítulo {chapter.number}
               </h1>
+              <div className="mt-1.5 h-1 bg-line/30 rounded-full overflow-hidden" role="progressbar" aria-valuenow={Math.round(((currentPageIndex + 1) / chapter.pages.length) * 100)} aria-valuemin={0} aria-valuemax={100} aria-label={`Progreso del capítulo: ${Math.round(((currentPageIndex + 1) / chapter.pages.length) * 100)}%`}>
+                <div
+                  className="h-full bg-primary-400 transition-all duration-300 ease-out"
+                  style={{ width: `${((currentPageIndex + 1) / chapter.pages.length) * 100}%` }}
+                />
+              </div>
             </div>
             <span className="text-sm text-slate-400 w-24 text-right" aria-hidden="true">
               {currentPageIndex + 1} / {chapter.pages.length}

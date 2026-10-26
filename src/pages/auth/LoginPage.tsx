@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useDemoCatalog } from '../../lib/demo/hooks'
 import Button from '../../components/ui/Button'
@@ -12,6 +12,12 @@ export default function LoginPage() {
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
 
+  useEffect(() => {
+    if (isAdminAuthenticated()) {
+      navigate('/admin', { replace: true })
+    }
+  }, [isAdminAuthenticated, navigate])
+
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault()
     setError('')
@@ -22,11 +28,6 @@ export default function LoginPage() {
     } else {
       setError('Credenciales inválidas. Usa admin@demo.com / demo1234')
     }
-  }
-
-  if (isAdminAuthenticated()) {
-    navigate('/admin', { replace: true })
-    return null
   }
 
   return (
