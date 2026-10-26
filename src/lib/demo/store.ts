@@ -77,7 +77,8 @@ function isManhwa(value: unknown): value is Manhwa {
     isString(value.latestChapter) &&
     isString(value.cover) &&
     coverVariants.includes(value.cover as CoverVariant) &&
-    (value.coverImage === undefined || isString(value.coverImage))
+    (value.coverImage === undefined || isString(value.coverImage)) &&
+    (value.coverImageKey === undefined || isString(value.coverImageKey))
   )
 }
 

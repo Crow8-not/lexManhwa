@@ -19,6 +19,7 @@ export type Manhwa = {
   latestChapter: string
   cover: CoverVariant
   coverImage?: string
+  coverImageKey?: string
 }
 
 export type ChapterPage = {
