@@ -11,7 +11,6 @@ export default function AdminPage() {
   const navigate = useNavigate()
   const location = useLocation()
   const { logoutAdmin } = useDemoCatalog()
-  const [activeTab, setActiveTab] = useState<AdminTab>('manhwas')
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
   const handleLogout = () => {
@@ -23,17 +22,14 @@ export default function AdminPage() {
     navigate('/admin/login', { replace: true })
   }
 
+  const activeTab: AdminTab = location.pathname.startsWith('/admin/settings')
+    ? 'settings'
+    : 'manhwas'
+
   const tabs: { id: AdminTab; label: string; href: string }[] = [
     { id: 'manhwas', label: 'Manhwas', href: '/admin' },
     { id: 'settings', label: 'Ajustes', href: '/admin/settings' },
   ]
-
-  const currentPath = location.pathname
-  const currentTab = tabs.find((t) => currentPath.startsWith(t.href))?.id || 'manhwas'
-
-  if (currentTab !== activeTab) {
-    setActiveTab(currentTab)
-  }
 
   return (
     <div className="min-h-screen bg-ink text-slate-100">
@@ -66,10 +62,7 @@ export default function AdminPage() {
                     ? 'bg-primary-500/15 text-primary-300'
                     : 'text-slate-400 hover:bg-elevated hover:text-slate-100'
                 }`}
-                onClick={() => {
-                  setActiveTab(tab.id)
-                  setSidebarOpen(false)
-                }}
+                onClick={() => setSidebarOpen(false)}
               >
                 {tab.label}
               </Link>
