@@ -6,6 +6,7 @@ import ManhwaCover from './ManhwaCover'
 type ManhwaCardProps = {
   manhwa: Manhwa
   className?: string
+  latestChapterLabel?: string
 }
 
 const statusLabels: Record<Manhwa['status'], string> = {
@@ -21,7 +22,11 @@ const statusTones: Record<Manhwa['status'], 'success' | 'warning' | 'neutral'> =
     hiatus: 'warning',
   }
 
-function ManhwaCard({ manhwa, className = '' }: ManhwaCardProps) {
+function ManhwaCard({
+  manhwa,
+  className = '',
+  latestChapterLabel,
+}: ManhwaCardProps) {
   return (
     <Link
       aria-label={`Ver detalle de ${manhwa.title}`}
@@ -35,7 +40,7 @@ function ManhwaCard({ manhwa, className = '' }: ManhwaCardProps) {
             {manhwa.title}
           </h3>
           <p className="mt-1 truncate text-[11px] text-slate-400 sm:text-xs">
-            {manhwa.latestChapter}
+            {latestChapterLabel ?? manhwa.latestChapter}
           </p>
         </div>
         <Badge

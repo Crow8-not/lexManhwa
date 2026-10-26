@@ -37,8 +37,17 @@ export type Chapter = {
   pages: ChapterPage[]
 }
 
+export type ReadingProgress = {
+  userId: string
+  manhwaId: string
+  chapterId: string
+  pageNumber: number
+  updatedAt: string
+}
+
 export type DemoState = {
   version: number
   manhwas: Manhwa[]
   chapters: Chapter[]
+  progress: ReadingProgress[]
 }

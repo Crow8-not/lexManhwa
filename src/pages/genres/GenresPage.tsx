@@ -1,6 +1,7 @@
 import { useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import { useDemoCatalog } from '../../lib/demo/hooks'
+import { slugify } from '../../lib/utils/slug'
 
 function GenresPage() {
   const { manhwas } = useDemoCatalog()
@@ -28,7 +29,7 @@ function GenresPage() {
             <Link
               key={genre}
               className="rounded-2xl border border-line bg-surface p-5 text-lg font-semibold text-white transition-colors hover:border-primary-400 hover:bg-elevated focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-400"
-              to={`/buscar?genre=${encodeURIComponent(genre)}`}
+              to={`/generos/${slugify(genre)}`}
             >
               {genre}
             </Link>

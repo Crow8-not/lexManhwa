@@ -1,9 +1,20 @@
+import { useMemo } from 'react'
 import ManhwaCard from '../../components/manhwa/ManhwaCard'
 import { useDemoCatalog } from '../../lib/demo/hooks'
 import { Link } from 'react-router-dom'
+import { getLatestChapter, formatChapterLabel } from '../../lib/demo/selectors'
 
 function BrowsePage() {
-  const { manhwas } = useDemoCatalog()
+  const { manhwas, chapters } = useDemoCatalog()
+
+  const manhwasWithLatest = useMemo(
+    () =>
+      manhwas.map((manhwa) => ({
+        ...manhwa,
+        _latestChapterLabel: formatChapterLabel(getLatestChapter(manhwa.id, chapters)),
+      })),
+    [manhwas, chapters],
+  )
 
   return (
     <main className="surface-grid min-h-[calc(100vh-137px)] px-4 py-12 sm:px-8 sm:py-16">
@@ -26,8 +37,12 @@ function BrowsePage() {
           </Link>
         </div>
         <div className="mt-10 grid grid-cols-3 gap-2 sm:grid-cols-4 sm:gap-4 lg:grid-cols-5">
-          {manhwas.map((manhwa) => (
-            <ManhwaCard key={manhwa.id} manhwa={manhwa} />
+          {manhwasWithLatest.map((manhwa) => (
+            <ManhwaCard
+              key={manhwa.id}
+              manhwa={manhwa}
+              latestChapterLabel={manhwa._latestChapterLabel}
+            />
           ))}
         </div>
       </section>

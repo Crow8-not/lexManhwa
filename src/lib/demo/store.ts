@@ -7,10 +7,11 @@ import type {
   DemoState,
   Manhwa,
   ManhwaStatus,
+  ReadingProgress,
 } from '../../types/manhwa'
 
-export const DEMO_STORAGE_KEY = 'lexmanhwa:demo:v1'
-export const DEMO_STATE_VERSION = 1
+export const DEMO_STORAGE_KEY = 'lexmanhwa:demo:v3'
+export const DEMO_STATE_VERSION = 3
 
 type DemoUpdater = (state: DemoState) => DemoState
 type DemoListener = () => void
@@ -109,6 +110,21 @@ function isChapter(value: unknown): value is Chapter {
   )
 }
 
+function isReadingProgress(value: unknown): value is ReadingProgress {
+  if (!isRecord(value)) {
+    return false
+  }
+
+  return (
+    isString(value.userId) &&
+    isString(value.manhwaId) &&
+    isString(value.chapterId) &&
+    typeof value.pageNumber === 'number' &&
+    Number.isFinite(value.pageNumber) &&
+    isString(value.updatedAt)
+  )
+}
+
 function isDemoState(value: unknown): value is DemoState {
   return (
     isRecord(value) &&
@@ -116,7 +132,9 @@ function isDemoState(value: unknown): value is DemoState {
     Array.isArray(value.manhwas) &&
     value.manhwas.every(isManhwa) &&
     Array.isArray(value.chapters) &&
-    value.chapters.every(isChapter)
+    value.chapters.every(isChapter) &&
+    Array.isArray(value.progress) &&
+    value.progress.every(isReadingProgress)
   )
 }
 
@@ -128,6 +146,7 @@ function createSeedState(): DemoState {
       ...chapter,
       pages: chapter.pages.map((page) => ({ ...page })),
     })),
+    progress: [],
   }
 }
 
@@ -191,4 +210,55 @@ export function resetDemoState() {
   saveState(currentState)
 
   listeners.forEach((listener) => listener())
+}
+
+export function getProgressForManhwa(manhwaId: string): ReadingProgress[] {
+  const state = getDemoState()
+  return state.progress.filter((p) => p.manhwaId === manhwaId)
+}
+
+export function setProgress(
+  manhwaId: string,
+  chapterId: string,
+  pageNumber: number,
+) {
+  setDemoState((state) => {
+    const existingIndex = state.progress.findIndex(
+      (p) => p.manhwaId === manhwaId && p.chapterId === chapterId,
+    )
+    const newProgress: ReadingProgress = {
+      userId: 'demo-user',
+      manhwaId,
+      chapterId,
+      pageNumber,
+      updatedAt: new Date().toISOString(),
+    }
+    const nextProgress = [...state.progress]
+    if (existingIndex >= 0) {
+      nextProgress[existingIndex] = newProgress
+    } else {
+      nextProgress.push(newProgress)
+    }
+    return { ...state, progress: nextProgress }
+  })
+}
+
+export function getLatestProgress(
+  manhwas: Manhwa[],
+  chapters: Chapter[],
+  progress: ReadingProgress[],
+): { manhwa: Manhwa; chapter: Chapter; progress: ReadingProgress } | null {
+  if (progress.length === 0) {
+    return null
+  }
+  const sortedProgress = [...progress].sort(
+    (a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime(),
+  )
+  const latest = sortedProgress[0]
+  const manhwa = manhwas.find((m) => m.id === latest.manhwaId)
+  const chapter = chapters.find((c) => c.id === latest.chapterId)
+  if (!manhwa || !chapter) {
+    return null
+  }
+  return { manhwa, chapter, progress: latest }
 }

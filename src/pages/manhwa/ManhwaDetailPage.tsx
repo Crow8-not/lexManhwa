@@ -4,6 +4,13 @@ import Card from '../../components/ui/Card'
 import ManhwaCover from '../../components/manhwa/ManhwaCover'
 import StatusMessage from '../../components/ui/StatusMessage'
 import { useDemoCatalog } from '../../lib/demo/hooks'
+import {
+  getPublishedChaptersForManhwa,
+  getLatestChapter,
+  formatChapterLabel,
+  getChapterCount,
+  getFirstChapter,
+} from '../../lib/demo/selectors'
 import type { ManhwaStatus } from '../../types/manhwa'
 
 const statusLabels: Record<ManhwaStatus, string> = {
@@ -19,7 +26,7 @@ const statusTones: Record<ManhwaStatus, 'success' | 'warning' | 'neutral'> = {
 }
 
 function ManhwaDetailPage() {
-  const { manhwas } = useDemoCatalog()
+  const { manhwas, chapters } = useDemoCatalog()
   const { slug } = useParams<{ slug: string }>()
   const manhwa = manhwas.find((item) => item.slug === slug)
 
@@ -41,6 +48,11 @@ function ManhwaDetailPage() {
     )
   }
 
+  const publishedChapters = getPublishedChaptersForManhwa(manhwa.id, chapters)
+  const latestChapter = getLatestChapter(manhwa.id, chapters)
+  const firstChapter = getFirstChapter(manhwa.id, chapters)
+  const chapterCount = getChapterCount(manhwa.id, chapters)
+
   return (
     <main className="surface-grid min-h-[calc(100vh-137px)] px-4 py-12 sm:px-8 sm:py-16">
       <article className="mx-auto max-w-content">
@@ -61,7 +73,9 @@ function ManhwaDetailPage() {
               <Badge tone={statusTones[manhwa.status]}>
                 {statusLabels[manhwa.status]}
               </Badge>
-              <Badge tone="neutral">{manhwa.latestChapter}</Badge>
+              <Badge tone="neutral">
+                {latestChapter ? formatChapterLabel(latestChapter) : 'Sin capítulos'}
+              </Badge>
             </div>
             <h1 className="mt-4 text-3xl font-bold tracking-tight text-white sm:text-5xl">
               {manhwa.title}
@@ -86,9 +100,9 @@ function ManhwaDetailPage() {
                 </dd>
               </div>
               <div>
-                <dt className="text-sm text-slate-400">Último capítulo</dt>
+                <dt className="text-sm text-slate-400">Capítulos</dt>
                 <dd className="mt-1 font-medium text-slate-100">
-                  {manhwa.latestChapter}
+                  {chapterCount}
                 </dd>
               </div>
             </dl>
@@ -98,13 +112,57 @@ function ManhwaDetailPage() {
                 {manhwa.description}
               </p>
             </Card>
-            <div className="mt-6 flex gap-3">
-              <Link
-                to={`/lector?manhwa=${manhwa.slug}`}
-                className="inline-flex min-h-11 items-center justify-center rounded-xl bg-primary-500 px-4 py-2 text-sm font-semibold text-white shadow-glow transition-colors hover:bg-primary-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-400"
-              >
-                Leer primer capítulo
-              </Link>
+            <div className="mt-6 flex flex-wrap gap-3">
+              {firstChapter && (
+                <Link
+                  to={`/manhwa/${manhwa.slug}/capitulo/${firstChapter.slug}`}
+                  className="inline-flex min-h-11 items-center justify-center rounded-xl bg-primary-500 px-4 py-2 text-sm font-semibold text-white shadow-glow transition-colors hover:bg-primary-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-400"
+                >
+                  Leer primer capítulo
+                </Link>
+              )}
+              {latestChapter && latestChapter.id !== firstChapter?.id && (
+                <Link
+                  to={`/manhwa/${manhwa.slug}/capitulo/${latestChapter.slug}`}
+                  className="inline-flex min-h-11 items-center justify-center rounded-xl bg-elevated border border-line px-4 py-2 text-sm font-semibold text-white transition-colors hover:border-primary-400 hover:bg-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-400"
+                >
+                  Último capítulo
+                </Link>
+              )}
+            </div>
+            <div className="mt-8">
+              <h2 className="text-lg font-semibold text-white">Capítulos</h2>
+              {publishedChapters.length === 0 ? (
+                <StatusMessage
+                  tone="empty"
+                  title="Todavía no hay capítulos publicados"
+                >
+                  Cuando se publiquen, aparecerán aquí.
+                </StatusMessage>
+              ) : (
+                <ul className="mt-4 space-y-2" role="list">
+                  {publishedChapters
+                    .slice()
+                    .sort((a, b) => b.number - a.number)
+                    .map((chapter) => (
+                      <li key={chapter.id}>
+                        <Link
+                          to={`/manhwa/${manhwa.slug}/capitulo/${chapter.slug}`}
+                          className="flex items-center justify-between rounded-xl border border-line/80 bg-surface p-3 text-sm transition-colors hover:border-primary-400 hover:bg-elevated focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-400"
+                        >
+                          <span className="font-medium text-white">
+                            {formatChapterLabel(chapter)}
+                          </span>
+                          {chapter.title !== `Capítulo ${chapter.number}` && (
+                            <span className="ml-3 text-slate-400">
+                              {chapter.title}
+                            </span>
+                          )}
+                        </Link>
+                      </li>
+                    ))}
+                </ul>
+              )}
             </div>
           </div>
         </div>

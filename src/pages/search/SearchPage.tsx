@@ -5,6 +5,7 @@ import Input from '../../components/ui/Input'
 import StatusMessage from '../../components/ui/StatusMessage'
 import Button from '../../components/ui/Button'
 import { useDemoCatalog } from '../../lib/demo/hooks'
+import { getLatestChapter, formatChapterLabel } from '../../lib/demo/selectors'
 import type { ManhwaStatus } from '../../types/manhwa'
 
 const statusLabels: Record<ManhwaStatus, string> = {
@@ -14,7 +15,7 @@ const statusLabels: Record<ManhwaStatus, string> = {
 }
 
 function SearchPage() {
-  const { manhwas } = useDemoCatalog()
+  const { manhwas, chapters } = useDemoCatalog()
   const genres = useMemo(
     () => [...new Set(manhwas.map((manhwa) => manhwa.genre))].sort(),
     [manhwas],
@@ -35,18 +36,23 @@ function SearchPage() {
   const hasFilters = Boolean(normalizedQuery || genre || status)
   const results = useMemo(
     () =>
-      manhwas.filter((manhwa) => {
-        const matchesQuery =
-          !normalizedQuery ||
-          [manhwa.title, manhwa.author, manhwa.artist].some((field) =>
-            field.toLocaleLowerCase().includes(normalizedQuery),
-          )
-        const matchesGenre = !genre || manhwa.genre === genre
-        const matchesStatus = !status || manhwa.status === status
+      manhwas
+        .filter((manhwa) => {
+          const matchesQuery =
+            !normalizedQuery ||
+            [manhwa.title, manhwa.author, manhwa.artist].some((field) =>
+              field.toLocaleLowerCase().includes(normalizedQuery),
+            )
+          const matchesGenre = !genre || manhwa.genre === genre
+          const matchesStatus = !status || manhwa.status === status
 
-        return matchesQuery && matchesGenre && matchesStatus
-      }),
-    [genre, manhwas, normalizedQuery, status],
+          return matchesQuery && matchesGenre && matchesStatus
+        })
+        .map((manhwa) => ({
+          ...manhwa,
+          _latestChapterLabel: formatChapterLabel(getLatestChapter(manhwa.id, chapters)),
+        })),
+    [genre, manhwas, chapters, normalizedQuery, status],
   )
 
   function handleGenreChange(value: string) {
@@ -166,7 +172,11 @@ function SearchPage() {
         ) : (
           <div className="mt-4 grid grid-cols-3 gap-2 sm:grid-cols-4 sm:gap-4 lg:grid-cols-5">
             {results.map((manhwa) => (
-              <ManhwaCard key={manhwa.id} manhwa={manhwa} />
+              <ManhwaCard
+                key={manhwa.id}
+                manhwa={manhwa}
+                latestChapterLabel={manhwa._latestChapterLabel}
+              />
             ))}
           </div>
         )}

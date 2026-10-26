@@ -5,25 +5,38 @@ import Input from '../../components/ui/Input'
 import StatusMessage from '../../components/ui/StatusMessage'
 import ManhwaCard from '../../components/manhwa/ManhwaCard'
 import { useDemoCatalog } from '../../lib/demo/hooks'
+import { getLatestChapter, formatChapterLabel } from '../../lib/demo/selectors'
 import { Link } from 'react-router-dom'
 
 function HomePage() {
-  const { manhwas } = useDemoCatalog()
+  const { manhwas, chapters } = useDemoCatalog()
+
+  const manhwasWithLatest = useMemo(
+    () =>
+      manhwas.map((manhwa) => ({
+        ...manhwa,
+        _latestChapterLabel: formatChapterLabel(getLatestChapter(manhwa.id, chapters)),
+      })),
+    [manhwas, chapters],
+  )
+
   const latestUpdates = useMemo(
     () =>
-      [...manhwas].sort((first, second) => {
-        const firstChapter = Number.parseInt(
-          first.latestChapter.replace(/\D/g, ''),
-          10,
-        )
-        const secondChapter = Number.parseInt(
-          second.latestChapter.replace(/\D/g, ''),
-          10,
-        )
-
-        return secondChapter - firstChapter
+      [...manhwasWithLatest].sort((first, second) => {
+        const firstChapter = getLatestChapter(first.id, chapters)
+        const secondChapter = getLatestChapter(second.id, chapters)
+        if (!firstChapter && !secondChapter) {
+          return 0
+        }
+        if (!firstChapter) {
+          return 1
+        }
+        if (!secondChapter) {
+          return -1
+        }
+        return secondChapter.number - firstChapter.number
       }),
-    [manhwas],
+    [manhwasWithLatest, chapters],
   )
 
   return (
@@ -63,10 +76,11 @@ function HomePage() {
           </h2>
         </div>
         <div className="grid grid-cols-3 gap-2 sm:grid-cols-4 sm:gap-4 lg:grid-cols-5">
-          {manhwas.map((manhwa, index) => (
+          {manhwasWithLatest.map((manhwa, index) => (
             <ManhwaCard
               key={manhwa.id}
               manhwa={manhwa}
+              latestChapterLabel={manhwa._latestChapterLabel}
               className={`${
                 index >= 15
                   ? 'hidden'
@@ -109,6 +123,7 @@ function HomePage() {
             <ManhwaCard
               key={manhwa.id}
               manhwa={manhwa}
+              latestChapterLabel={manhwa._latestChapterLabel}
               className={`${
                 index >= 15
                   ? 'hidden'
